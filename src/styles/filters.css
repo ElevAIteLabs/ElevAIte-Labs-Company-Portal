@@ -1,0 +1,119 @@
+.filters-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 2rem 0;
+  padding: 0 1rem;
+}
+
+.filter-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  margin: 0.2rem;
+  border: 2px solid rgba(56, 189, 248, 0.5);
+  border-radius: 2rem;
+  background: rgba(30, 41, 59, 0.5);
+  color: #e2e8f0;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.filter-button:hover {
+  background: rgba(56, 189, 248, 0.2);
+  border-color: #38bdf8;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(56, 189, 248, 0.2);
+}
+
+.filter-button.active {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  border-color: transparent;
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+  transform: translateY(-2px);
+}
+
+.filter-button.active:hover {
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  box-shadow: 0 6px 18px rgba(59, 130, 246, 0.4);
+  transform: translateY(-3px);
+}
+
+.filter-count {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 9999px;
+  padding: 0.15rem 0.5rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  margin-left: 0.25rem;
+  transition: all 0.2s ease;
+}
+
+.filter-button.active .filter-count {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.filter-button:active {
+  transform: scale(0.98);
+}
+
+.filter-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+}
+
+.filter-icon {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .filters-container {
+    gap: 0.5rem;
+  }
+  
+  .filter-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+  
+  .filter-icon {
+    font-size: 0.9rem;
+  }
+}
+
+/* Dark theme adjustments */
+.dark .filter-button {
+  color: #e2e8f0;
+  border-color: #4b5563;
+}
+
+.dark .filter-button:hover {
+  background: rgba(75, 85, 99, 0.2);
+}
+
+.dark .filter-button.active {
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+  color: white;
+  border-color: transparent;
+}

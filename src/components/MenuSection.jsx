@@ -6,10 +6,10 @@ import ExpandedAbout from './ExpandedAbout';
 const menuItems = [
   { 
     id: 'about',
-    label: 'ABOUT',
-    headline: 'ABOUT US',
+    label: 'About',
+    headline: 'About',
     body: 'We are a team of passionate AI innovators, developers, and strategists dedicated to transforming businesses through cutting-edge artificial intelligence solutions.',
-    sectionTitle: 'ABOUT',
+    sectionTitle: 'About',
     points: [
       'OUR MISSION-To democratize AI technology by creating accessible, innovative solutions that empower businesses of all sizes to harness the transformative power of artificial intelligence.',
       'OUR VISION-A future where AI seamlessly integrates into every aspect of business operations, driving unprecedented efficiency, creativity, and growth.',
@@ -17,21 +17,21 @@ const menuItems = [
   },
   { 
     id: 'services',
-    label: 'SERVICES',
+    label: 'Services',
     headline: 'My Services',
     body: 'I offer a range of services to help bring your ideas to life.',
-    sectionTitle: 'SERVICES'
+    sectionTitle: 'Services'
   },
   { 
     id: 'projects',
-    label: 'PROJECTS',
+    label: 'Projects',
     headline: 'My Work',
     body: 'Here are some of my recent projects.',
-    sectionTitle: 'PROJECTS'
+    sectionTitle: 'Projects'
   },
   { 
     id: 'blog',
-    label: 'BLOG',
+    label: 'Blog',
     headline: 'AI Insights & Innovation',
     description: 'Stay ahead of the curve with our latest thoughts on AI development, emerging technologies, and industry trends.'
   }
@@ -122,6 +122,15 @@ const projectImages = {
     '/pictures/Professional Portfolio Website-2.png',
     '/pictures/Professional Portfolio Website-1.png',
     '/pictures/Professional Portfolio Website-3.png'
+  ],
+  leadCoordinator: [
+    '/pictures/lead coordinator.png'
+  ],
+  automated_email_reply: [
+    '/pictures/automated email.png'
+  ],
+  content_generation: [
+    '/pictures/content creation.png'
   ]
 };
 
@@ -153,18 +162,21 @@ const getCombinedProjects = () => {
       id: 'automated_email_reply',
       title: 'Automated Email Reply System',
       description: 'AI-powered Email Response Agent that automates client replies in real-time, streamlining business communication with quick, accurate, and context-aware responses.',
+      images: projectImages.automated_email_reply,
       website: '#'
     },
     {
       id: 'lead_coordinator',
       title: 'AI-Powered Lead Coordinator Automation Agent',
-      description: 'AI-powered lead coordinator that automates the entire process of handling and managing inquiries from potential tenants. It pre-qualifies leads by analyzing their needs',
+      description: 'AI-powered lead coordinator that automates the entire process of handling and managing.',
+      images: projectImages.leadCoordinator,
       website: '#'
     },
     {
       id: 'content_generation',
       title: 'Content Generation Platform',
       description: 'AI-powered content creation tool for social media, blogs, and marketing materials.',
+      images: projectImages.content_generation,
       website: '#'
     }
   ];

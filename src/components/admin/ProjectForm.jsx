@@ -16,8 +16,46 @@ const ProjectForm = () => {
     title: '',
     description: '',
     images: [],
-    website: '#'
+    website: '#',
+    projectType: 'Web App', // Default project type
+    tags: ['Web App']
   });
+  
+  // Load project data in edit mode
+  useEffect(() => {
+    if (isEditMode) {
+      const projects = JSON.parse(localStorage.getItem('projects') || '[]');
+      const project = projects.find(p => p.id === id);
+      
+      if (project) {
+        setFormData({
+          title: project.title || '',
+          description: project.description || '',
+          images: project.images || [],
+          website: project.website || '#',
+          projectType: project.tags?.[0] || 'Web App',
+          tags: project.tags || ['Web App']
+        });
+        setPreviewImages(project.images || []);
+      }
+    }
+  }, [id, isEditMode]);
+  
+  const projectTypes = [
+    'Web App',
+    'Mobile App',
+    'AI Automation',
+    'AI Agents',
+    'Content Creation'
+  ];
+  
+  const filterTypes = [
+    'Web App',
+    'Mobile App',
+    'AI Automation',
+    'AI Agents',
+    'Content Creation'
+  ];
   const [previewImages, setPreviewImages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -43,7 +81,11 @@ const ProjectForm = () => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      [name]: value,
+      // Update tags when projectType changes
+      ...(name === 'projectType' && {
+        tags: [value]
+      })
     }));
   };
 
@@ -143,35 +185,66 @@ const ProjectForm = () => {
     e.preventDefault();
     
     // Basic validation
-    if (!formData.title || !formData.description) {
+    if (!formData.title || !formData.description || !formData.projectType) {
       setError('Please fill in all required fields');
       return;
     }
     
-    // Check total projects size
+    // Clean up website URL - if it's just '#', make it an empty string
+    const cleanWebsite = formData.website === '#' ? '' : formData.website.trim();
+
+    // Get existing projects from localStorage
+    const existingProjects = JSON.parse(localStorage.getItem('projects') || '[]');
+    
+    // Generate a URL-friendly ID from the title
+    const generateId = (title) => {
+      return title
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/(^-|-$)/g, '');
+    };
+    
     try {
       setLoading(true);
       setError('');
       
-      const projects = JSON.parse(localStorage.getItem('projects') || '[]');
+      // Create project data object
       const projectData = {
-        ...formData,
-        id: isEditMode ? id : Date.now().toString(),
-        createdAt: isEditMode 
-          ? (projects.find(p => p.id === id)?.createdAt || new Date().toISOString())
-          : new Date().toISOString()
+        id: isEditMode ? id : generateId(formData.title),
+        title: formData.title.trim(),
+        description: formData.description.trim(),
+        images: formData.images,
+        website: cleanWebsite || '#',
+        tags: [formData.projectType, ...formData.tags.filter(tag => tag !== formData.projectType)]
       };
 
-      const updatedProjects = isEditMode
-        ? projects.map(p => p.id === id ? projectData : p)
-        : [...projects, projectData];
+      let updatedProjects;
+      if (isEditMode) {
+        // Update existing project
+        updatedProjects = existingProjects.map(project => 
+          project.id === id ? { ...project, ...projectData } : project
+        );
+      } else {
+        // Add new project
+        updatedProjects = [...existingProjects, projectData];
+      }
 
+      // Validate total size
       const projectsSize = new Blob([JSON.stringify(updatedProjects)]).size;
       if (projectsSize > MAX_TOTAL_SIZE) {
         throw new Error('Total projects data exceeds storage limit. Please remove some projects or reduce image sizes.');
       }
 
+      // Save to localStorage
       localStorage.setItem('projects', JSON.stringify(updatedProjects));
+      
+      // Trigger storage event to notify other components
+      window.dispatchEvent(new Event('storage'));
+      
+      // Show success message
+      setError('');
+      alert(`Project ${isEditMode ? 'updated' : 'added'} successfully!`);
+      
       // Navigate back to projects list
       navigate('/admin/projects');
     } catch (err) {
@@ -215,6 +288,46 @@ const ProjectForm = () => {
             className="form-control"
             required
           />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="projectType">Project Type *</label>
+          <select
+            id="projectType"
+            name="projectType"
+            value={formData.projectType}
+            onChange={handleInputChange}
+            className="form-control"
+            required
+          >
+            {projectTypes.map((type) => (
+              <option key={type} value={type}>
+                {type}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="website">Website URL</label>
+          <div className="input-group">
+            <span className="input-group-text">
+              <i className="fas fa-globe"></i>
+            </span>
+            <input
+              type="url"
+              id="website"
+              name="website"
+              value={formData.website}
+              onChange={handleInputChange}
+              className="form-control"
+              placeholder="https://example.com (optional)"
+              pattern="(https?://.+)?"
+            />
+          </div>
+          <small className="form-text text-muted">
+            Include http:// or https://
+          </small>
         </div>
 
         <div className="form-group">

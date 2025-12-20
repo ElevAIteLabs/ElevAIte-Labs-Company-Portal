@@ -2,17 +2,22 @@ import React, { useEffect } from 'react';
 
 function Hero() {
   useEffect(() => {
-    // Load the Spline viewer script
-    const script = document.createElement('script');
-    script.src = 'https://unpkg.com/@splinetool/viewer@1.12.22/build/spline-viewer.js';
-    script.type = 'module';
-    document.body.appendChild(script);
-
-    return () => {
-      // Clean up the script when component unmounts
-      document.body.removeChild(script);
-    };
-  }, []);
+    // Load the latest Spline viewer script
+    const existingScript = document.querySelector('script[src*="spline-viewer"]');
+    
+    if (!existingScript) {
+      const script = document.createElement('script');
+      script.src = 'https://unpkg.com/@splinetool/viewer@1.12.27/build/spline-viewer.js';
+      script.type = 'module';
+      document.body.appendChild(script);
+      
+      return () => {
+        if (document.body.contains(script)) {
+          document.body.removeChild(script);
+        }
+      };
+    }
+  }, []); // Added missing closing bracket and dependency array
 
   const handleExploreClick = (e) => {
     e.preventDefault();
@@ -46,6 +51,7 @@ function Hero() {
           <spline-viewer 
             url="https://prod.spline.design/gPH4ewWSyOhtYyrz/scene.splinecode"
             loading="eager"
+            loading-anim
             class="spline-viewer"
             style={{
               '--cursor': 'pointer',
@@ -53,8 +59,11 @@ function Hero() {
               '--background-color': 'transparent',
               '--controls-color': 'transparent',
               '--ui-overlay': 'none',
+              width: '100%',
+              height: '100%',
+              border: 'none',
+              outline: 'none'
             }}
-            loading-anim
             loading-anim-type="spinner-big-dark"
             shadow-intensity="0"
             background="transparent"
