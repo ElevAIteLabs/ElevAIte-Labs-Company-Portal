@@ -12,8 +12,10 @@ import ProjectForm from './components/admin/ProjectForm';
 import Login from './components/admin/Login';
 import ExpandedAbout from './components/ExpandedAbout';
 import BlogPage from './components/BlogPage';
+import Projects from './components/Projects';
 import './styles/styles.css';
 import './styles/admin.css';
+import './styles/projects.css';
 
 function App() {
   return (
@@ -39,6 +41,13 @@ function App() {
         <Route path="/blog" element={
           <Layout>
             <BlogPage />
+          </Layout>
+        } />
+
+        {/* Projects Page */}
+        <Route path="/projects" element={
+          <Layout>
+            <Projects />
           </Layout>
         } />
 

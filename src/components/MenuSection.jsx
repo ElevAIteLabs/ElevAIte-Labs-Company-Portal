@@ -130,7 +130,7 @@ const getCombinedProjects = () => {
   const defaultProjects = [
     {
       id: 'chaitanyamrutha',
-      title: 'Chaitan yamrutha-Community Empowerment Platform',
+      title: 'Chaitan yamrutha ',
       description: 'A website promoting a lifestyle of simplicity and mindful growth through initiatives like organic farming, animal welfare, education, healthcare, and food for life, built to inspire and serve communities worldwide.',
       images: projectImages.chaitanyamrutha,
       website: 'https://chaitanyamrutha.org/'
@@ -138,14 +138,14 @@ const getCombinedProjects = () => {
     {
       id: 'beesuitz',
       title: 'Bee Suitz',
-      description: 'Designed and developed Bee Suitz,comprehensive AI enablement platform designed to unify education and execution. The application features a library of expert-tested prompts and a vetted directory of AI tools.',
+      description: 'Designed and developed Bee Suitz,comprehensive AI enablement platform designed to unify education and execution.',
       images: projectImages.beesuitz,
       website: 'https://beesuitz.com/'
     },
     {
       id: 'portfolio',
       title: 'Professional Portfolio Website',
-      description: 'Built a professional portfolio website to showcase skills, projects, and experience, enhancing online presence and attracting potential clients or employers.',
+      description: 'Built a professional portfolio website to showcase skills, projects, enhancing online presence and attracting potential clients or employers.',
       images: projectImages.portfolio,
       website: 'https://premsaikilaru-portfolio.netlify.app/'
     },

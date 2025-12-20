@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom';
-import { FiGrid, FiPlus } from 'react-icons/fi';
+import { FiGrid, FiPlus, FiTrash2, FiEdit2, FiExternalLink } from 'react-icons/fi';
 import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 
 const Dashboard = () => {
   const [projects, setProjects] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(null);
 
   useEffect(() => {
     const fetchProjects = () => {
@@ -85,6 +87,30 @@ const Dashboard = () => {
     { title: 'New Projects', value: newProjects.toString(), icon: <FiPlus size={24} />, link: '/admin/projects' },
   ];
 
+  const handleDeleteProject = (projectId) => {
+    if (window.confirm('Are you sure you want to delete this project? This action cannot be undone.')) {
+      const updatedProjects = projects.filter(project => project.id !== projectId);
+      
+      // Update local storage
+      try {
+        const savedProjects = localStorage.getItem('projects');
+        let projectsToSave = [];
+        
+        if (savedProjects) {
+          const parsedProjects = JSON.parse(savedProjects);
+          projectsToSave = parsedProjects.filter(project => project.id !== projectId);
+        }
+        
+        localStorage.setItem('projects', JSON.stringify(projectsToSave));
+        setProjects(updatedProjects);
+        toast.success('Project deleted successfully');
+      } catch (error) {
+        console.error('Error deleting project:', error);
+        toast.error('Failed to delete project');
+      }
+    }
+  };
+
   if (isLoading) {
     return <div className="admin-dashboard"><h1>Loading...</h1></div>;
   }
@@ -124,21 +150,33 @@ const Dashboard = () => {
                   ? `${project.description.substring(0, 100)}...` 
                   : project.description}
               </p>
-              <div className="project-actions">
+              <div className="project-actions flex justify-between items-center w-full">
                 <a 
                   href={project.website} 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="btn btn-sm btn-outline"
+                  className="btn btn-sm btn-outline flex items-center gap-1"
                 >
-                  View Live
+                  <FiExternalLink size={14} /> View Live
                 </a>
-                <Link 
-                  to={`/admin/projects/edit/${project.id}`}
-                  className="btn btn-sm btn-primary"
-                >
-                  Edit
-                </Link>
+                <div className="flex gap-6 ml-auto">
+                  <Link 
+                    to={`/admin/projects/edit/${project.id}`}
+                    className="btn btn-sm btn-primary flex items-center gap-1"
+                  >
+                    <FiEdit2 size={14} /> Edit
+                  </Link>
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      handleDeleteProject(project.id);
+                    }}
+                    className="btn btn-sm btn-danger flex items-center gap-1"
+                  >
+                    <FiTrash2 size={10} /> Delete
+                  </button>
+                </div>
               </div>
             </div>
           ))}
