@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import ExpandedAbout from './ExpandedAbout';
+import '../styles/HeroSection.css';
 
 // Menu items for navigation
 const menuItems = [
@@ -284,10 +285,6 @@ const MenuSection = () => {
 
   return (
     <>
-      <div className="geometric-shapes">
-        <div className="shape shape-1"></div>
-        <div className="shape shape-2"></div>
-      </div>
       <section id="menu-section" className="menu-section">
       <div className="menu-section__eyebrow">02 MENU SECTION</div>
       <div className="menu-section__grid">

@@ -71,6 +71,34 @@
   flex-shrink: 0;
 }
 
+/* Mobile styles for career CTA */
+@media (max-width: 768px) {
+  .career-cta .container {
+    padding: 30px 20px;
+  }
+  
+  .career-cta {
+    margin-bottom: 0.5rem !important;
+    padding: 40px 0 30px !important;
+  }
+  
+  .career-cta-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  
+  .career-cta-button {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+  }
+  
+  .career-cta-button .cta-button {
+    margin: 0;
+  }
+}
+
 .container {
   max-width: 1200px;
   margin: 0 auto;

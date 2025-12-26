@@ -176,29 +176,10 @@ const Projects = () => {
 
   return (
     <div className="projects-page-container projects-page">
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-        <h1>Our Projects</h1>
-        <button 
-          onClick={handleRefresh} 
-          style={{
-            padding: '8px 16px',
-            background: '#4a6cf7',
-            color: 'white',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '8px',
-            fontSize: '14px'
-          }}
-        >
-          <span>⟳</span> Refresh Projects
-        </button>
-      </div>
       <div className="projects-page-header">
-        <h1>Our Projects</h1>
+          <h1>Our Projects</h1>
         <p>Check out some of our recent work</p>
+
       </div>
       
       <div className="filters-container">

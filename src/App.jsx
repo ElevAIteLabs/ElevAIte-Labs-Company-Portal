@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, ProtectedRoute } from './contexts/AuthContext';
 import Layout from './components/Layout';
@@ -13,11 +13,37 @@ import Login from './components/admin/Login';
 import ExpandedAbout from './components/ExpandedAbout';
 import BlogPage from './components/BlogPage';
 import Projects from './components/Projects';
+import Contacts from './components/Contacts';
 import './styles/styles.css';
 import './styles/admin.css';
 import './styles/projects.css';
+import './styles/responsive.css';
 
 function App() {
+  // Handle hash-based scrolling
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash;
+      if (hash) {
+        const id = hash.replace('#', '');
+        const element = document.getElementById(id);
+        if (element) {
+          // Small timeout to ensure the page has fully rendered
+          setTimeout(() => {
+            element.scrollIntoView({ behavior: 'smooth' });
+          }, 100);
+        }
+      }
+    };
+
+    // Handle initial page load with hash
+    handleHashChange();
+
+    // Handle hash changes after initial load
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
   return (
     <AuthProvider>
       <Routes>
@@ -48,6 +74,13 @@ function App() {
         <Route path="/projects" element={
           <Layout>
             <Projects />
+          </Layout>
+        } />
+
+        {/* Contacts Page */}
+        <Route path="/contacts" element={
+          <Layout>
+            <Contacts />
           </Layout>
         } />
 
