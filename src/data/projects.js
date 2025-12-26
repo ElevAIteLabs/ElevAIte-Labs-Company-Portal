@@ -52,6 +52,7 @@ export const defaultProjects = [
 
 // Get projects from localStorage and combine with default projects
 export const getProjects = () => {
+  // Start with default projects
   let combinedProjects = [...defaultProjects];
   
   try {
@@ -59,15 +60,25 @@ export const getProjects = () => {
     if (savedProjects) {
       const parsedProjects = JSON.parse(savedProjects);
       if (Array.isArray(parsedProjects) && parsedProjects.length > 0) {
-        // Create a map of existing project IDs for quick lookup
-        const existingIds = new Set(combinedProjects.map(p => p.id));
+        // Create a map to track unique projects by ID
+        const projectMap = new Map();
         
-        // Only add saved projects that don't exist in default projects
-        parsedProjects.forEach(project => {
-          if (!existingIds.has(project.id)) {
-            combinedProjects.push(project);
+        // Add default projects to the map first
+        combinedProjects.forEach(project => {
+          if (project && project.id) {
+            projectMap.set(project.id, project);
           }
         });
+        
+        // Add saved projects, which will overwrite any duplicates
+        parsedProjects.forEach(project => {
+          if (project && project.id) {
+            projectMap.set(project.id, project);
+          }
+        });
+        
+        // Convert back to array
+        combinedProjects = Array.from(projectMap.values());
       }
     }
   } catch (error) {
