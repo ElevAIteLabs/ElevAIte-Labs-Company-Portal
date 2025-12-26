@@ -71,7 +71,7 @@
   flex-shrink: 0;
 }
 
-/* Mobile styles for career CTA */
+/* Mobile styles */
 @media (max-width: 768px) {
   .career-cta .container {
     padding: 30px 20px;
@@ -96,6 +96,43 @@
   
   .career-cta-button .cta-button {
     margin: 0;
+  }
+
+  /* Contact section mobile styles */
+  .contact-content {
+    grid-template-columns: 1fr;
+    padding: 20px 24px 40px;
+    text-align: left;
+  }
+
+  .contact-info h2 {
+    font-size: 28px;
+    text-align: left;
+    margin-bottom: 24px;
+  }
+
+  .contact-methods {
+    margin: 30px 0;
+    width: 100%;
+  }
+
+  .contact-method {
+    margin-bottom: 20px;
+    align-items: center;
+  }
+
+  .icon-wrapper {
+    width: 36px;
+    height: 36px;
+    margin-right: 12px;
+  }
+
+  .contact-label {
+    font-size: 14px;
+  }
+
+  .contact-detail {
+    font-size: 15px;
   }
 }
 
@@ -176,26 +213,25 @@
 
 .contact-method {
   display: flex;
-  align-items: flex-start;
-  margin-bottom: 25px;
+  align-items: center;
+  margin-bottom: 20px;
   color: #E0E0E0;
-  transition: transform 0.3s ease;
-}
-
-.contact-method:hover {
-  transform: translateX(5px);
+  transition: all 0.2s ease;
+  padding: 6px 0;
+  width: 100%;
+  gap: 8px;
 }
 
 .icon-wrapper {
   flex-shrink: 0;
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
   border-radius: 12px;
   background: rgba(74, 144, 226, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 20px;
+  margin-right: 12px;
   transition: all 0.3s ease;
 }
 
@@ -214,14 +250,15 @@
   font-weight: 500;
   color: #94A3B8;
   margin: 0 0 4px 0;
+  line-height: 1.4;
 }
 
 .contact-detail {
   font-size: 16px;
-  font-weight: 500;
-  color: #E2E8F0;
+  color: #E0E0E0;
   margin: 0;
-  line-height: 1.5;
+  line-height: 1.6;
+  word-break: break-word;
 }
 
 .social-links {

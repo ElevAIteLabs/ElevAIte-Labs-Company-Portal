@@ -75,7 +75,7 @@ function ContactSection() {
                 </div>
                 <div>
                   <p className="contact-label">Our Location</p>
-                  <p className="contact-detail">123 Tech Park, Hyderabad , India</p>
+                  <p className="contact-detail">Telangana, Hyderabad , India</p>
                 </div>
               </div>
 
@@ -95,7 +95,7 @@ function ContactSection() {
                 </div>
                 <div>
                   <p className="contact-label">Call Us</p>
-                  <p className="contact-detail">+91 12345 67890</p>
+                  <p className="contact-detail">+91 75699 54054</p>
                 </div>
               </div>
             </div>

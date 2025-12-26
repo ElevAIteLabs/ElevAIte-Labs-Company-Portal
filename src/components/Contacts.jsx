@@ -36,14 +36,14 @@ const Contacts = () => {
             <FaMapMarkerAlt className="icon" />
             <div>
               <h3>Location</h3>
-              <p>123 Business Street, City, Country</p>
+              <p>Hyderabad,Telangana</p>
             </div>
           </div>
           <div className="info-item">
             <FaPhone className="icon" />
             <div>
               <h3>Phone</h3>
-              <p>+1 (555) 123-4567</p>
+              <p>+91 75699 54054</p>
             </div>
           </div>
           <div className="info-item">
