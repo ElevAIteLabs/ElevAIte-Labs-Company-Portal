@@ -93,62 +93,73 @@ const Projects = () => {
   const projectsArray = Array.isArray(projects) ? projects : [];
   
   const filteredProjects = React.useMemo(() => {
+    // First, ensure projects is an array
+    const projectsArray = Array.isArray(projects) ? projects : [];
+    
+    if (!projectsArray.length) {
+      console.warn('No projects available to filter');
+      return [];
+    }
+
     if (activeFilter === 'all') {
       console.log('Showing all projects:', projectsArray.length);
       return [...projectsArray];
     }
     
     console.log(`Filtering projects by: ${activeFilter}`);
+    const lowerCaseFilter = activeFilter.toLowerCase().trim();
+    
     return projectsArray.filter(project => {
-      if (!project || !project.tags || !Array.isArray(project.tags)) {
-        console.log('Project missing tags or invalid:', project);
+      if (!project) {
+        console.warn('Undefined project found in array');
         return false;
       }
       
-      // For each project, check if any of its tags match the active filter
-      const matches = project.tags.some(tag => {
-        if (!tag) return false;
-        const tagLower = tag.toString().toLowerCase().trim();
-        const filterLower = activeFilter.toLowerCase().trim();
-        
-        // Special case for 'web' filter to match only 'Web App' tags
-        if (filterLower === 'web' && tagLower === 'web app') {
-          return true;
-        }
-        
-        // Special case for 'ai' filter to match only 'AI Automation' tags
-        if (filterLower === 'ai' && 
-            (tagLower.includes('ai automation') || tagLower === 'automation')) {
-          return true;
-        }
-        
-        // Special case for 'agents' filter to match only 'AI Agents' tags
-        if (filterLower === 'agents' && 
-            (tagLower.includes('ai agent') || tagLower === 'agent')) {
-          return true;
-        }
-        
-        // Special case for 'mobile' filter
-        if (filterLower === 'mobile' && tagLower.includes('mobile')) {
-          return true;
-        }
-        
-        // Special case for 'content' filter
-        if (filterLower === 'content' && tagLower.includes('content')) {
-          return true;
-        }
-        
-        // Default matching
-        return tagLower.includes(filterLower);
-      });
+      // Ensure project has tags and it's an array
+      const projectTags = Array.isArray(project.tags) ? project.tags : [];
       
-      if (matches) {
-        console.log(`Project matches filter "${activeFilter}":`, project.title, 'Tags:', project.tags);
+      // If no tags, only show in 'all' filter (already handled above)
+      if (!projectTags.length) {
+        return false;
       }
       
-      return matches;
+      // Check if any tag matches the filter
+      return projectTags.some(tag => {
+        if (!tag) return false;
+        const tagLower = tag.toString().toLowerCase().trim();
+        
+        // Handle different filter cases
+        switch (lowerCaseFilter) {
+          case 'web':
+            // Only match exact 'web app' or 'web' tags
+            return tagLower === 'web app' || tagLower === 'web';
+            
+          case 'ai':
+            // Match only AI Automation tags, exclude AI Agent
+            return (tagLower === 'ai automation' || tagLower === 'automation') && 
+                   tagLower !== 'ai agent' && tagLower !== 'agent';
+                   
+          case 'agents':
+            // Match only AI Agent specific tags
+            return tagLower === 'ai agent' || tagLower === 'agent';
+            
+          case 'mobile':
+            // Only match mobile-specific tags (case-insensitive)
+            return tagLower === 'mobile' || tagLower === 'mobile app' || 
+                   tagLower === 'mobile application';
+                   
+          case 'content':
+            // Match content-related tags
+            return tagLower === 'content' || tagLower === 'content creation' || 
+                   tagLower === 'content generation' || tagLower === 'content creation';
+                   
+          default:
+            // Default to exact match for other filters
+            return tagLower === lowerCaseFilter;
+        }
+      });
     });
-  }, [projectsArray, activeFilter]);
+  }, [projects, activeFilter]);
   
   console.log(`Found ${filteredProjects.length} projects matching filter "${activeFilter}":`, 
     filteredProjects.map(p => p.title));

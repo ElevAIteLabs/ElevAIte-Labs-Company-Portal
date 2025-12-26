@@ -55,35 +55,50 @@ export const getProjects = () => {
   // Start with default projects
   let combinedProjects = [...defaultProjects];
   
-  try {
-    const savedProjects = localStorage.getItem('projects');
-    if (savedProjects) {
-      const parsedProjects = JSON.parse(savedProjects);
-      if (Array.isArray(parsedProjects) && parsedProjects.length > 0) {
-        // Create a map to track unique projects by ID
-        const projectMap = new Map();
-        
-        // Add default projects to the map first
-        combinedProjects.forEach(project => {
-          if (project && project.id) {
-            projectMap.set(project.id, project);
-          }
-        });
-        
-        // Add saved projects, which will overwrite any duplicates
-        parsedProjects.forEach(project => {
-          if (project && project.id) {
-            projectMap.set(project.id, project);
-          }
-        });
-        
-        // Convert back to array
-        combinedProjects = Array.from(projectMap.values());
+  // Only run this in browser environment
+  if (typeof window !== 'undefined') {
+    try {
+      const savedProjects = localStorage.getItem('projects');
+      if (savedProjects) {
+        const parsedProjects = JSON.parse(savedProjects);
+        if (Array.isArray(parsedProjects) && parsedProjects.length > 0) {
+          // Create a map to track unique projects by ID
+          const projectMap = new Map();
+          
+          // Add default projects to the map first
+          defaultProjects.forEach(project => {
+            if (project && project.id) {
+              projectMap.set(project.id, project);
+            }
+          });
+          
+          // Add saved projects, which will overwrite any duplicates
+          parsedProjects.forEach(project => {
+            if (project && project.id) {
+              // Ensure the project has all required fields
+              const completeProject = {
+                id: project.id,
+                title: project.title || 'Untitled Project',
+                description: project.description || '',
+                images: Array.isArray(project.images) ? project.images : [],
+                website: project.website || '#',
+                tags: Array.isArray(project.tags) ? project.tags : []
+              };
+              projectMap.set(project.id, completeProject);
+            }
+          });
+          
+          // Convert back to array
+          combinedProjects = Array.from(projectMap.values());
+        }
       }
+    } catch (error) {
+      console.error('Error loading projects from localStorage:', error);
+      // If there's an error, return default projects
+      return [...defaultProjects];
     }
-  } catch (error) {
-    console.error('Error loading projects from localStorage:', error);
   }
   
+  console.log('Returning projects:', combinedProjects);
   return combinedProjects;
 };
