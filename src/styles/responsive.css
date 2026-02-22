@@ -92,13 +92,15 @@ input[type="button"],
 /* Logo on the left */
 .logo {
   order: 1;
-  margin-right: auto; /* Push everything else to the right */
+  margin-right: auto;
+  /* Push everything else to the right */
 }
 
 /* Navigation container on the right */
 nav {
   order: 2;
-  margin-left: auto; /* Push nav to the right */
+  margin-left: auto;
+  /* Push nav to the right */
 }
 
 /* ===============================
@@ -121,7 +123,8 @@ nav {
 ================================ */
 
 .hamburger {
-  display: none; /* Will be overridden in mobile view */
+  display: none;
+  /* Will be overridden in mobile view */
   width: 44px;
   height: 44px;
   background: none;
@@ -216,7 +219,7 @@ nav {
   .header .container {
     justify-content: space-between;
   }
-  
+
   .nav {
     margin-left: auto;
     margin-right: 0;
@@ -228,7 +231,7 @@ nav {
   :root {
     --header-height: 60px;
   }
-  
+
   /* Header container */
   .header .container {
     padding: 0 1rem;
@@ -237,7 +240,7 @@ nav {
     justify-content: space-between;
     max-width: 100%;
   }
-  
+
   /* Hamburger button */
   .hamburger {
     display: flex;
@@ -254,7 +257,7 @@ nav {
     align-items: center;
     margin-left: auto;
   }
-  
+
   .hamburger-box {
     width: 100%;
     height: 100%;
@@ -262,7 +265,7 @@ nav {
     flex-direction: column;
     justify-content: space-between;
   }
-  
+
   .hamburger-inner {
     display: block;
     width: 100%;
@@ -270,24 +273,24 @@ nav {
     background-color: white;
     transition: all 0.3s ease;
   }
-  
+
   .hamburger.is-active .hamburger-inner:nth-child(1) {
     transform: translateY(11px) rotate(45deg);
   }
-  
+
   .hamburger.is-active .hamburger-inner:nth-child(2) {
     opacity: 0;
   }
-  
+
   .hamburger.is-active .hamburger-inner:nth-child(3) {
     transform: translateY(-11px) rotate(-45deg);
   }
-  
+
   /* Logo - hidden in mobile view */
   .logo {
     display: none;
   }
-  
+
   /* Hide desktop nav in mobile view */
   .nav {
     display: none;
@@ -305,7 +308,8 @@ nav {
 
   /* Mobile nav styles */
   .nav {
-    display: none; /* Hide by default, will be shown with .nav--open */
+    display: none;
+    /* Hide by default, will be shown with .nav--open */
     position: fixed;
     top: var(--header-height);
     right: -50%;
@@ -325,7 +329,8 @@ nav {
   .nav.nav--open {
     transform: translateX(-100%);
     box-shadow: -4px 0 15px rgba(0, 0, 0, 0.3);
-    display: flex; /* Show nav when menu is open */
+    display: flex;
+    /* Show nav when menu is open */
   }
 
   .nav-link {
@@ -388,23 +393,24 @@ nav {
     font-size: 0.9rem;
   }
 }
- .hero-container {
-    padding-top: 40px !important;
-    position: relative;
-    min-height: 80vh;
-  }
-  
-  .hero-cta {
-   margin-top: 2rem;
-    width: 100%;
-  }
-  
-  .cta-button {
-    width: auto;
-    padding: 0.75rem 1.5rem;
-  }
 
-  /* ===============================
+.hero-container {
+  padding-top: 40px !important;
+  position: relative;
+  min-height: 80vh;
+}
+
+.hero-cta {
+  margin-top: 2rem;
+  width: 100%;
+}
+
+.cta-button {
+  width: auto;
+  padding: 0.75rem 1.5rem;
+}
+
+/* ===============================
    PAGE LAYOUT
 ================================ */
 :root {
@@ -435,63 +441,16 @@ nav {
    TYPOGRAPHY
 ================================ */
 
-/* Project Image Stack - Mobile */
+/* Project Image Stack - Mobile moved to styles.css for unified control */
 @media (max-width: 767px) {
-  .project-image-stack {
-    position: relative;
-    width: 100%;
-    min-width: auto;
-    margin: 1.5rem auto;
-    padding: 10px 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .project-image {
-    position: relative;
-    width: 85% !important;
-    max-width: 320px;
-    height: 180px !important;
-    left: auto !important;
-    right: auto !important;
-    top: auto !important;
-    transform: none !important;
-    margin: 0 auto 1.5rem !important;
-    opacity: 1 !important;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    overflow: hidden;
-    object-fit: cover;
-  }
-  
-  .project-image:hover {
-    transform: scale(1.02) !important;
-    z-index: 1 !important;
-  }
-  
-  /* Reset hover effects on mobile */
-  .project-image:nth-child(1),
-  .project-image:nth-child(2),
-  .project-image:nth-child(3) {
-    transform: none !important;
-  }
-  
-  /* Only apply negative margin if there are multiple images */
-  .project-image-stack:has(> :nth-child(2)) .project-image ~ .project-image {
-    margin-top: -120px !important;
-  }
-  
   .project-container {
     flex-direction: column;
   }
-  
+
   .project-content {
     order: 2;
   }
-  
+
   .project-image-stack {
     order: 1;
     margin-bottom: 1.5rem;
@@ -499,12 +458,12 @@ nav {
 }
 
 .hero-animation {
-    flex: 0 0 40%;
-    height: 180px;
-    margin: -20px 0 0 -15px;
-    align-self: flex-start;
-  }
-  
+  flex: 0 0 40%;
+  height: 180px;
+  margin: -20px 0 0 -15px;
+  align-self: flex-start;
+}
+
 h1 {
   font-size: 2.25rem;
 }

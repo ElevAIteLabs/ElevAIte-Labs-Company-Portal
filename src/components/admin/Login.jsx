@@ -8,13 +8,13 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  
+
   const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!username || !password) {
       setError('Please fill in all fields');
       return;
@@ -22,10 +22,10 @@ const Login = () => {
 
     setError('');
     setLoading(true);
-    
+
     try {
       const result = login(username, password);
-      
+
       if (result.success) {
         navigate('/admin/dashboard');
       } else {
@@ -46,9 +46,9 @@ const Login = () => {
           <h1>Admin Login</h1>
           <p>Sign in to access the admin dashboard</p>
         </div>
-        
+
         {error && <div className="alert alert-danger">{error}</div>}
-        
+
         <form onSubmit={handleSubmit} className="login-form">
           <div className="form-group">
             <label htmlFor="username">Username</label>
@@ -67,7 +67,7 @@ const Login = () => {
               />
             </div>
           </div>
-          
+
           <div className="form-group">
             <label htmlFor="password">Password</label>
             <div className="input-group">
@@ -85,7 +85,7 @@ const Login = () => {
               />
             </div>
           </div>
-          
+
           <div className="form-options">
             <div className="form-check">
               <input type="checkbox" id="remember" className="form-check-input" />
@@ -95,16 +95,16 @@ const Login = () => {
               Forgot password?
             </Link>
           </div>
-          
-          <button 
-            type="submit" 
+
+          <button
+            type="submit"
             className="btn btn-primary btn-block"
             disabled={loading}
           >
             <FiLogIn /> {loading ? 'Signing in...' : 'Sign In'}
           </button>
         </form>
-        
+
         <div className="login-footer">
           <p>© {new Date().getFullYear()} ElevAIte. All rights reserved.</p>
         </div>

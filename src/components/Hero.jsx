@@ -155,10 +155,10 @@ function Hero() {
         }
         @media (max-width: 768px) {
           .hero-container {
-            padding: 15px 10px !important;
-            min-height: 80vh !important;
-            max-height: 1000vh !important;
-            gap: 1.5rem !important;
+            padding: 0px 10px !important;
+            padding-top: 0px !important;
+            min-height: auto !important;
+            gap: 0.5rem !important;
             flex-direction: column !important;
             height: auto !important;
           }
@@ -168,10 +168,10 @@ function Hero() {
             padding: 0 !important;
             margin: 0 !important;
             order: 1 !important;
-            text-align: center !important;
+            text-align: left !important;
           }
           .hero-description {
-            margin-left: auto !important;
+            margin-left: 0 !important;
             margin-right: auto !important;
           }
           .hero-animation {

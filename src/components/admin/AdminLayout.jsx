@@ -4,7 +4,6 @@ import { FiMenu, FiX, FiHome, FiGrid, FiLogOut, FiChevronRight, FiBriefcase, FiP
 import './AdminLayout.css';
 
 const AdminLayout = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSubmenu, setActiveSubmenu] = useState(null);
   const location = useLocation();
@@ -14,15 +13,6 @@ const AdminLayout = () => {
   useEffect(() => {
     setIsMenuOpen(false);
   }, [location]);
-
-  // Handle scroll effect for header
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem('isAuthenticated');
@@ -76,7 +66,7 @@ const AdminLayout = () => {
         <div className="sidebar-header">
           <Link to="/admin/dashboard" className="logo">
             <span className="logo-text">Elev<span>AI</span>te</span>
-            <span className="logo-subtext">Admin Panel</span>
+
           </Link>
         </div>
 
@@ -123,6 +113,15 @@ const AdminLayout = () => {
         </nav>
 
         <div className="sidebar-footer">
+          <div className="user-profile">
+            <div className="user-avatar">
+              <span>AD</span>
+            </div>
+            <div className="user-info">
+              <span className="user-name">Admin User</span>
+              <span className="user-role">Administrator</span>
+            </div>
+          </div>
           <button onClick={handleLogout} className="logout-btn">
             <FiLogOut size={18} />
             <span>Logout</span>
@@ -139,30 +138,6 @@ const AdminLayout = () => {
 
       {/* Main Content */}
       <main className="admin-content">
-        <header className={`admin-header ${isScrolled ? 'scrolled' : ''}`}>
-          <div className="header-content">
-            <div className="header-left">
-              <h1 className="page-title">
-                {navItems.find(item =>
-                  location.pathname === item.path ||
-                  (item.submenu && item.submenu.some(sub => sub.path === location.pathname))
-                )?.title || 'Dashboard'}
-              </h1>
-            </div>
-            <div className="header-right">
-              <div className="user-menu">
-                <div className="user-avatar">
-                  <span>AD</span>
-                </div>
-                <div className="user-info">
-                  <span className="user-name">Admin User</span>
-                  <span className="user-role">Administrator</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </header>
-
         <div className="content-wrapper">
           <Outlet />
         </div>

@@ -94,7 +94,6 @@ const Dashboard = () => {
   const stats = [
     { title: 'Total Projects', value: totalProjects.toString(), icon: <FiGrid size={24} />, link: '/admin/projects' },
     { title: 'Vacant Roles', value: rolesCount.toString(), icon: <FiBriefcase size={24} />, link: '/admin/roles' },
-    { title: 'New Projects', value: newProjects.toString(), icon: <FiPlus size={24} />, link: '/admin/projects' },
   ];
 
   const handleDeleteProject = (projectId) => {
@@ -160,33 +159,34 @@ const Dashboard = () => {
                   ? `${project.description.substring(0, 100)}...`
                   : project.description}
               </p>
-              <div className="project-actions flex justify-between items-center w-full">
+              <div className="project-actions">
                 <a
                   href={project.website}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn btn-sm btn-outline flex items-center gap-1"
+                  className="btn btn-sm btn-outline"
+                  title="View Live"
                 >
-                  <FiExternalLink size={14} /> View Live
+                  <FiExternalLink size={16} /> <span>View Live</span>
                 </a>
-                <div className="flex gap-6 ml-auto">
-                  <Link
-                    to={`/admin/projects/edit/${project.id}`}
-                    className="btn btn-sm btn-primary flex items-center gap-1"
-                  >
-                    <FiEdit2 size={14} /> Edit
-                  </Link>
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      handleDeleteProject(project.id);
-                    }}
-                    className="btn btn-sm btn-danger flex items-center gap-1"
-                  >
-                    <FiTrash2 size={10} /> Delete
-                  </button>
-                </div>
+                <Link
+                  to={`/admin/projects/edit/${project.id}`}
+                  className="btn btn-sm btn-primary"
+                  title="Edit Project"
+                >
+                  <FiEdit2 size={16} /> <span>Edit</span>
+                </Link>
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    handleDeleteProject(project.id);
+                  }}
+                  className="btn btn-sm btn-danger"
+                  title="Delete Project"
+                >
+                  <FiTrash2 size={16} /> <span>Delete</span>
+                </button>
               </div>
             </div>
           ))}
