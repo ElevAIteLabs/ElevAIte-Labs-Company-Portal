@@ -1407,7 +1407,7 @@ spline-viewer::part(spline-loading-animation) {
 
 .project-image:nth-child(1) {
     left: -10%;
-    top: 70px;
+    top: 10px;
     z-index: 1;
     transform: rotate(-10deg);
     opacity: 0.7;
@@ -1415,7 +1415,7 @@ spline-viewer::part(spline-loading-animation) {
 
 .project-image:nth-child(2) {
     left: 5%;
-    top: 30px;
+    top: -20px;
     z-index: 3;
     width: 70%;
     transform: rotate(0deg);
@@ -1424,8 +1424,8 @@ spline-viewer::part(spline-loading-animation) {
 }
 
 .project-image:nth-child(3) {
-    left: 25%;
-    top: 80px;
+    left: 35%;
+    top: 40px;
     z-index: 2;
     transform: rotate(10deg);
     opacity: 0.8;
@@ -2392,7 +2392,6 @@ spline-viewer::part(spline-loading-animation) {
     font-size: 0.9rem;
     font-weight: 500;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .global-back-home:hover {
@@ -2403,6 +2402,39 @@ spline-viewer::part(spline-loading-animation) {
 }
 
 .global-back-home svg {
+    font-size: 1.1rem;
+}
+
+.project-demo-btn {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+}
+
+.demo-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50px;
+    color: white;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.demo-link:hover {
+    background: var(--accent-blue);
+    border-color: var(--accent-blue);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(30, 136, 229, 0.4);
+}
+
+.demo-link svg {
     font-size: 1.1rem;
 }
 

@@ -383,26 +383,6 @@ const MenuSection = () => {
                   <div className="project-content">
                     <div className="project-header">
                       <div className="menu-section__panel-header">{currentProject.title}</div>
-                      {currentProject.website && currentProject.website !== '#' && (
-                        <a
-                          href={currentProject.website}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="project-maximize"
-                          aria-label={`View ${currentProject.title} website`}
-                          style={{ position: 'relative', zIndex: 1000 }}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            window.open(currentProject.website, '_blank');
-                          }}
-                        >
-                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M15 3h6v6"></path>
-                            <path d="M10 14L21 3"></path>
-                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                          </svg>
-                        </a>
-                      )}
                     </div>
                     <p className="menu-section__panel-body" style={{ marginBottom: '1rem' }}>
                       {projectIndex === 0
@@ -410,6 +390,25 @@ const MenuSection = () => {
                         : currentProject.description
                       }
                     </p>
+                    <div className="project-demo-btn">
+                      <a
+                        href={currentProject.website && currentProject.website !== '#' ? currentProject.website : '#'}
+                        target={currentProject.website && currentProject.website !== '#' ? '_blank' : '_self'}
+                        rel="noopener noreferrer"
+                        className="demo-link"
+                        aria-label={`View ${currentProject.title} website`}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          if (currentProject.website && currentProject.website !== '#') {
+                            window.open(currentProject.website, '_blank');
+                          } else {
+                            e.preventDefault();
+                          }
+                        }}
+                      >
+                        <span>View Live Project</span>
+                      </a>
+                    </div>
                   </div>
 
                   {currentProject.images && (
