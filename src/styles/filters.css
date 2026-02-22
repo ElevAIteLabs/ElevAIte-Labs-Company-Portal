@@ -86,9 +86,17 @@
 }
 
 @keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }
 
 .filter-button:active {
@@ -114,14 +122,14 @@
     gap: 0.5rem;
     justify-content: flex-start;
   }
-  
+
   .filter-button {
     padding: 0.5rem 0.9rem;
     font-size: 0.8rem;
     white-space: nowrap;
     flex-shrink: 0;
   }
-  
+
   .filter-icon {
     font-size: 0.9rem;
   }

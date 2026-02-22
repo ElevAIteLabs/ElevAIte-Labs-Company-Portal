@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
-  
+
   return (
     <footer className="footer">
       <div className="footer-container">
@@ -42,7 +42,8 @@ const Footer = () => {
             <li><Link to="/services">Services</Link></li>
             <li><Link to="/projects">Projects</Link></li>
             <li><Link to="/blog">Blog</Link></li>
-            <li><Link to="/contact">Contact</Link></li>
+            <li><Link to="/careers">Careers</Link></li>
+            <li><Link to="/contacts">Contact</Link></li>
           </ul>
         </div>
 

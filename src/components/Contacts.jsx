@@ -1,109 +1,141 @@
 import React, { useState } from 'react';
-import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaPaperPlane } from 'react-icons/fa';
-import '../styles/Contacts.css';
+import { FiMail, FiPhone, FiMapPin, FiSend, FiFacebook, FiTwitter, FiInstagram, FiLinkedin } from 'react-icons/fi';
+import '../styles/contacts.css';
 
 const Contacts = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  });
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        subject: '',
+        message: ''
+    });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Here you would typically send the form data to your backend
-    console.log('Form submitted:', formData);
-    alert('Thank you for your message. We will get back to you soon!');
-    setFormData({ name: '', email: '', subject: '', message: '' });
-  };
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log('Form Submitted:', formData);
+        alert('Thank you for contacting us! We will get back to you soon.');
+        setFormData({ name: '', email: '', subject: '', message: '' });
+    };
 
-  return (
-    <div className="contacts-container">
-      <h1>Get In Touch</h1>
-      <div className="contacts-content">
-        <div className="contact-info">
-          <h2>Contact Information</h2>
-          <div className="info-item">
-            <FaMapMarkerAlt className="icon" />
-            <div>
-              <h3>Location</h3>
-              <p>Hyderabad,Telangana</p>
+    return (
+        <div className="contacts-page">
+            <div className="contacts-header">
+                <h1>Get in Touch</h1>
+                <p>Have a question or want to work together? We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
             </div>
-          </div>
-          <div className="info-item">
-            <FaPhone className="icon" />
-            <div>
-              <h3>Phone</h3>
-              <p>+91 75699 54054</p>
+
+            <div className="contacts-grid">
+                <div className="contact-info-card">
+                    <div className="contact-info-item">
+                        <div className="contact-icon-wrapper">
+                            <FiMail />
+                        </div>
+                        <div className="contact-info-text">
+                            <h3>Email Us</h3>
+                            <p><a href="mailto:info@elevaite.com">info@elevaite.com</a></p>
+                            <p><a href="mailto:support@elevaite.com">support@elevaite.com</a></p>
+                        </div>
+                    </div>
+
+                    <div className="contact-info-item">
+                        <div className="contact-icon-wrapper">
+                            <FiPhone />
+                        </div>
+                        <div className="contact-info-text">
+                            <h3>Call Us</h3>
+                            <p><a href="tel:+919876543210">+91 98765 43210</a></p>
+                            <p>Mon - Fri, 9am - 6pm</p>
+                        </div>
+                    </div>
+
+                    <div className="contact-info-item">
+                        <div className="contact-icon-wrapper">
+                            <FiMapPin />
+                        </div>
+                        <div className="contact-info-text">
+                            <h3>Visit Us</h3>
+                            <p>Hitech City, Hyderabad,</p>
+                            <p>Telangana, India - 500081</p>
+                        </div>
+                    </div>
+
+                    <div className="contact-socials">
+                        <h3>Follow Us</h3>
+                        <div className="social-icons-row">
+                            <a href="#" className="social-btn"><FiFacebook /></a>
+                            <a href="#" className="social-btn"><FiTwitter /></a>
+                            <a href="#" className="social-btn"><FiInstagram /></a>
+                            <a href="#" className="social-btn"><FiLinkedin /></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="contact-form-card">
+                    <form className="contact-form" onSubmit={handleSubmit}>
+                        <div className="form-row">
+                            <div className="form-group">
+                                <label htmlFor="name">Full Name</label>
+                                <input
+                                    type="text"
+                                    id="name"
+                                    name="name"
+                                    value={formData.name}
+                                    onChange={handleChange}
+                                    placeholder="John Doe"
+                                    required
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="email">Email Address</label>
+                                <input
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                    placeholder="john@example.com"
+                                    required
+                                />
+                            </div>
+                        </div>
+
+                        <div className="form-group">
+                            <label htmlFor="subject">Subject</label>
+                            <input
+                                type="text"
+                                id="subject"
+                                name="subject"
+                                value={formData.subject}
+                                onChange={handleChange}
+                                placeholder="How can we help?"
+                                required
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <label htmlFor="message">Your Message</label>
+                            <textarea
+                                id="message"
+                                name="message"
+                                value={formData.message}
+                                onChange={handleChange}
+                                placeholder="Tell us more about your project..."
+                                required
+                            ></textarea>
+                        </div>
+
+                        <button type="submit" className="submit-btn">
+                            Send Message <FiSend />
+                        </button>
+                    </form>
+                </div>
             </div>
-          </div>
-          <div className="info-item">
-            <FaEnvelope className="icon" />
-            <div>
-              <h3>Email</h3>
-              <p>contact@elevaitelabs.com</p>
-            </div>
-          </div>
         </div>
-        
-        <form className="contact-form" onSubmit={handleSubmit}>
-          <h2>Send us a Message</h2>
-          <div className="form-group">
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              placeholder="Your Name"
-              required
-            />
-          </div>
-          <div className="form-group">
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="Your Email"
-              required
-            />
-          </div>
-          <div className="form-group">
-            <input
-              type="text"
-              name="subject"
-              value={formData.subject}
-              onChange={handleChange}
-              placeholder="Subject"
-              required
-            />
-          </div>
-          <div className="form-group">
-            <textarea
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              placeholder="Your Message"
-              rows="5"
-              required
-            ></textarea>
-          </div>
-          <button type="submit" className="submit-btn">
-            <FaPaperPlane className="btn-icon" /> Send Message
-          </button>
-        </form>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default Contacts;

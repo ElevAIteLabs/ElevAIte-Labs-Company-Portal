@@ -4,13 +4,13 @@ function Hero() {
   useEffect(() => {
     // Load the latest Spline viewer script
     const existingScript = document.querySelector('script[src*="spline-viewer"]');
-    
+
     if (!existingScript) {
       const script = document.createElement('script');
       script.src = 'https://unpkg.com/@splinetool/viewer@1.12.27/build/spline-viewer.js';
       script.type = 'module';
       document.body.appendChild(script);
-      
+
       return () => {
         if (document.body.contains(script)) {
           document.body.removeChild(script);
@@ -28,7 +28,7 @@ function Hero() {
   };
 
   return (
-       <main id="hero" className="main" style={{ position: 'relative', zIndex: 1 }}>
+    <main id="hero" className="main" style={{ position: 'relative', zIndex: 1 }}>
       <div className="hero-container" style={{
         display: 'flex',
         flexDirection: 'row',
@@ -41,7 +41,7 @@ function Hero() {
         overflow: 'hidden',
         gap: '2rem'
       }}>
-        <div className="hero-content-wrapper" style={{ 
+        <div className="hero-content-wrapper" style={{
           flex: '1',
           position: 'relative',
           zIndex: 10,
@@ -63,7 +63,8 @@ function Hero() {
             maxWidth: '500px',
             lineHeight: '1.6'
           }}>
-            Crafting exceptional Digital Experiences through innovative design and cutting-edge technology
+
+            We build AI-powered web apps, mobile apps, and automation solutions for startups and businesses
           </p>
           <div className="hero-cta">
             <button className="cta-button" onClick={handleExploreClick}>
@@ -85,7 +86,7 @@ function Hero() {
           marginTop: '40px',
           transform: 'translateY(80px)'
         }}>
-          <spline-viewer 
+          <spline-viewer
             url="https://prod.spline.design/gPH4ewWSyOhtYyrz/scene.splinecode"
             loading="eager"
             loading-anim

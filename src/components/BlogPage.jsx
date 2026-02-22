@@ -24,22 +24,13 @@ function BlogPage() {
         pointerEvents: 'none'
       }} />
       <div className="container" style={{ maxWidth: '1200px', margin: '0 auto' }}>
-        <Link to="/" style={{ 
-          color: 'var(--accent-blue)',
-          textDecoration: 'none',
-          display: 'inline-block',
-          marginBottom: '2rem',
-          fontSize: '0.9rem',
-          fontWeight: '500'
-        }}>
-          ← Back to Home
-        </Link>
-        <h1 style={{ 
-          fontSize: '2.5rem', 
+
+        <h1 style={{
+          fontSize: '2.5rem',
           marginBottom: '2rem',
           fontWeight: '500'
         }}>Blog</h1>
-        <div style={{ 
+        <div style={{
           background: 'rgba(255, 255, 255, 0.03)',
           borderRadius: '8px',
           padding: '2rem',

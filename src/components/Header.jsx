@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { FiMenu, FiX } from "react-icons/fi";
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -10,10 +11,11 @@ function Header() {
 
   const navLinks = [
     { id: 1, label: "Home", target: "/", isLink: true },
-    { id: 2, label: "Work", target: "menu", isLink: false },
-    { id: 3, label: "Projects", target: "/projects", isLink: true },
-    { id: 4, label: "Career", target: "career", isLink: false },
-    { id: 5, label: "Contact", target: "/contacts", isLink: true },
+    { id: 2, label: "About Us", target: "/about", isLink: true },
+    { id: 3, label: "Services", target: "/services", isLink: true },
+    { id: 4, label: "Projects", target: "/projects", isLink: true },
+    { id: 5, label: "Career", target: "/careers", isLink: true },
+    { id: 6, label: "Contact", target: "/contacts", isLink: true },
   ];
 
   const scrollToSection = (e, target) => {
@@ -72,22 +74,21 @@ function Header() {
 
   return (
     <>
+      {/* FLOATING HAMBURGER - mobile only, outside header so it shows when header is hidden */}
+      <button
+        ref={hamburgerRef}
+        className={`hamburger ${isMenuOpen ? "is-active" : ""}`}
+        onClick={() => setIsMenuOpen(!isMenuOpen)}
+        aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+        aria-expanded={isMenuOpen}
+        aria-controls="main-navigation"
+      >
+        {isMenuOpen ? <FiX size={22} /> : <FiMenu size={22} />}
+      </button>
+
+      {/* DESKTOP HEADER */}
       <header className="header">
         <div className="container">
-          {/* HAMBURGER */}
-          <button
-            ref={hamburgerRef}
-            className={`hamburger ${isMenuOpen ? "is-active" : ""}`}
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-            aria-expanded={isMenuOpen}
-            aria-controls="main-navigation"
-          >
-            <span className="hamburger-box">
-              <span className="hamburger-inner"></span>
-            </span>
-          </button>
-
           {/* LOGO */}
           <Link
             to="/"
@@ -99,12 +100,11 @@ function Header() {
             </span>
           </Link>
 
-          {/* NAVIGATION */}
+          {/* DESKTOP NAVIGATION */}
           <nav>
             <ul
-              ref={navRef}
-              className={`nav ${isMenuOpen ? "nav--open" : ""}`}
-              id="main-navigation"
+              className="nav desktop-nav"
+              id="main-navigation-desktop"
             >
               {navLinks.map((link) => (
                 <li key={link.id}>
@@ -131,8 +131,38 @@ function Header() {
           </nav>
         </div>
       </header>
+
+      {/* MOBILE SLIDE-OUT NAV PANEL */}
+      <ul
+        ref={navRef}
+        className={`nav mobile-nav ${isMenuOpen ? "nav--open" : ""}`}
+        id="main-navigation"
+      >
+        {navLinks.map((link) => (
+          <li key={link.id}>
+            {link.isLink ? (
+              <Link
+                to={link.target}
+                className="nav-link"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {link.label}
+              </Link>
+            ) : (
+              <a
+                href={`#${link.target}`}
+                className="nav-link"
+                onClick={(e) => scrollToSection(e, link.target)}
+              >
+                {link.label}
+              </a>
+            )}
+          </li>
+        ))}
+      </ul>
     </>
   );
+
 }
 
 export default Header;

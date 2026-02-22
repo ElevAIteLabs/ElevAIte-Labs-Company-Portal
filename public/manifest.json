@@ -1,0 +1,22 @@
+{
+  "short_name": "Elevaite",
+  "name": "Elevaite Portfolio",
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#1E88E5",
+  "background_color": "#0d1b36",
+  "orientation": "portrait"
+}

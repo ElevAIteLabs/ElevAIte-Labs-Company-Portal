@@ -1,6 +1,6 @@
 import { Outlet, Link, useNavigate, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { FiMenu, FiX, FiHome, FiGrid, FiLogOut, FiChevronRight } from 'react-icons/fi';
+import { FiMenu, FiX, FiHome, FiGrid, FiLogOut, FiChevronRight, FiBriefcase, FiPlus } from 'react-icons/fi';
 import './AdminLayout.css';
 
 const AdminLayout = () => {
@@ -48,13 +48,22 @@ const AdminLayout = () => {
         { title: 'All Projects', path: '/admin/projects' },
         { title: 'Add New', path: '/admin/projects/new' },
       ]
+    },
+    {
+      title: 'Careers',
+      icon: <FiBriefcase size={20} />,
+      path: '/admin/roles',
+      submenu: [
+        { title: 'All Roles', path: '/admin/roles' },
+        { title: 'Add New', path: '/admin/roles/new' },
+      ]
     }
   ];
 
   return (
     <div className="admin-layout">
       {/* Mobile Menu Toggle */}
-      <button 
+      <button
         className={`mobile-menu-toggle ${isMenuOpen ? 'open' : ''}`}
         onClick={() => setIsMenuOpen(!isMenuOpen)}
         aria-label="Toggle menu"
@@ -75,8 +84,8 @@ const AdminLayout = () => {
           <ul>
             {navItems.map((item, index) => (
               <li key={index} className={item.submenu?.length > 0 ? 'has-submenu' : ''}>
-                <Link 
-                  to={item.path} 
+                <Link
+                  to={item.path}
                   className={`nav-link ${location.pathname.startsWith(item.path) ? 'active' : ''}`}
                   onClick={(e) => {
                     if (item.submenu?.length > 0) {
@@ -93,13 +102,13 @@ const AdminLayout = () => {
                     </span>
                   )}
                 </Link>
-                
+
                 {item.submenu?.length > 0 && (
                   <ul className={`submenu ${activeSubmenu === item.title ? 'open' : ''}`}>
                     {item.submenu.map((subItem, subIndex) => (
                       <li key={subIndex}>
-                        <Link 
-                          to={subItem.path} 
+                        <Link
+                          to={subItem.path}
                           className={`submenu-link ${location.pathname === subItem.path ? 'active' : ''}`}
                         >
                           {subItem.title}
@@ -122,8 +131,8 @@ const AdminLayout = () => {
       </aside>
       {/* Overlay for mobile menu */}
       {isMenuOpen && (
-        <div 
-          className="sidebar-overlay" 
+        <div
+          className="sidebar-overlay"
           onClick={() => setIsMenuOpen(false)}
         />
       )}
@@ -134,8 +143,8 @@ const AdminLayout = () => {
           <div className="header-content">
             <div className="header-left">
               <h1 className="page-title">
-                {navItems.find(item => 
-                  location.pathname === item.path || 
+                {navItems.find(item =>
+                  location.pathname === item.path ||
                   (item.submenu && item.submenu.some(sub => sub.path === location.pathname))
                 )?.title || 'Dashboard'}
               </h1>

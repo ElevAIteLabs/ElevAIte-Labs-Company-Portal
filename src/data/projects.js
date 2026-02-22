@@ -30,7 +30,7 @@ export const defaultProjects = [
     description: 'AI-powered Email Response Agent that automates client replies in real-time, streamlining business communication with quick, accurate, and context-aware responses.',
     images: ['/pictures/automated email.png'],
     website: '#',
-    tags: ['AI Agent']
+    tags: ['AI Automation']
   },
   {
     id: 'lead_coordinator',
@@ -38,7 +38,7 @@ export const defaultProjects = [
     description: 'AI-powered lead coordinator that automates the entire process of handling and managing inquiries from potential tenants. It pre-qualifies leads by analyzing their needs.',
     images: ['/pictures/lead coordinator.png'],
     website: '#',
-    tags: ['Lead Management']
+    tags: ['AI Agent']
   },
   {
     id: 'content_generation',
@@ -46,7 +46,7 @@ export const defaultProjects = [
     description: 'AI-powered content creation tool for social media, blogs, and marketing materials.',
     images: ['/pictures/content creation.png'],
     website: '#',
-    tags: ['Content']
+    tags: ['Content Creation']
   }
 ];
 
@@ -54,7 +54,7 @@ export const defaultProjects = [
 export const getProjects = () => {
   // Start with default projects
   let combinedProjects = [...defaultProjects];
-  
+
   // Only run this in browser environment
   if (typeof window !== 'undefined') {
     try {
@@ -64,18 +64,17 @@ export const getProjects = () => {
         if (Array.isArray(parsedProjects) && parsedProjects.length > 0) {
           // Create a map to track unique projects by ID
           const projectMap = new Map();
-          
+
           // Add default projects to the map first
           defaultProjects.forEach(project => {
             if (project && project.id) {
               projectMap.set(project.id, project);
             }
           });
-          
+
           // Add saved projects, which will overwrite any duplicates
           parsedProjects.forEach(project => {
             if (project && project.id) {
-              // Ensure the project has all required fields
               const completeProject = {
                 id: project.id,
                 title: project.title || 'Untitled Project',
@@ -87,18 +86,16 @@ export const getProjects = () => {
               projectMap.set(project.id, completeProject);
             }
           });
-          
+
           // Convert back to array
           combinedProjects = Array.from(projectMap.values());
         }
       }
     } catch (error) {
       console.error('Error loading projects from localStorage:', error);
-      // If there's an error, return default projects
       return [...defaultProjects];
     }
   }
-  
-  console.log('Returning projects:', combinedProjects);
+
   return combinedProjects;
 };

@@ -1,0 +1,248 @@
+.careers-page {
+    padding: 120px 2rem 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+    min-height: 100vh;
+}
+
+.careers-header {
+    text-align: center;
+    margin-bottom: 5rem;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.careers-header h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, #ffffff, #a0a0a0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.careers-header p {
+    font-size: 1.2rem;
+    color: var(--text-gray);
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* Why Join Us Section */
+.careers-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 6rem;
+}
+
+.career-info-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 2.5rem;
+    transition: all 0.3s ease;
+}
+
+.career-info-card:hover {
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateY(-5px);
+    border-color: rgba(30, 136, 229, 0.3);
+}
+
+.career-info-icon {
+    font-size: 2.5rem;
+    color: var(--accent-blue);
+    margin-bottom: 1.5rem;
+}
+
+.career-info-card h3 {
+    font-size: 1.5rem;
+    color: white;
+    margin-bottom: 1rem;
+}
+
+.career-info-card p {
+    color: var(--text-gray);
+    line-height: 1.6;
+}
+
+/* Positions Section */
+.positions-section {
+    margin-bottom: 6rem;
+}
+
+.positions-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 3rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 1rem;
+}
+
+.positions-header h2 {
+    font-size: 2.2rem;
+    color: white;
+}
+
+.positions-count {
+    color: var(--accent-blue);
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.positions-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.position-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.position-card:hover {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: var(--accent-blue);
+    transform: scale(1.01);
+}
+
+.position-main h3 {
+    font-size: 1.4rem;
+    color: white;
+    margin-bottom: 0.5rem;
+}
+
+.position-meta {
+    display: flex;
+    gap: 1.5rem;
+    color: var(--light-gray);
+    font-size: 0.9rem;
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.apply-btn {
+    background: transparent;
+    color: var(--accent-blue);
+    border: 1px solid var(--accent-blue);
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.position-card:hover .apply-btn {
+    background: var(--accent-blue);
+    color: white;
+}
+
+/* Application Form Section */
+.application-cta {
+    background: linear-gradient(135deg, rgba(30, 136, 229, 0.1), rgba(13, 27, 54, 0.5));
+    border-radius: 24px;
+    padding: 4rem;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.application-cta h2 {
+    font-size: 2.2rem;
+    color: white;
+    margin-bottom: 1rem;
+}
+
+.application-cta p {
+    color: var(--text-gray);
+    max-width: 600px;
+    margin: 0 auto 2rem;
+}
+
+.cta-apply-btn {
+    background: var(--accent-blue);
+    color: white;
+    border: none;
+    padding: 1rem 2.5rem;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.cta-apply-btn:hover {
+    background: #1976d2;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(30, 136, 229, 0.3);
+}
+
+@media (max-width: 768px) {
+    .careers-page {
+        padding: 100px 1.5rem 40px;
+    }
+
+    .careers-header {
+        margin-bottom: 3rem;
+    }
+
+    .careers-header h1 {
+        font-size: 2.2rem;
+    }
+
+    .careers-header p {
+        font-size: 1rem;
+    }
+
+    .careers-info-grid {
+        gap: 1.5rem;
+        margin-bottom: 4rem;
+    }
+
+    .career-info-card {
+        padding: 1.5rem;
+    }
+
+    .positions-header h2 {
+        font-size: 1.8rem;
+    }
+
+    .position-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
+        padding: 1.5rem;
+    }
+
+    .position-meta {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .apply-btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .application-cta {
+        padding: 2.5rem 1.5rem;
+    }
+
+    .application-cta h2 {
+        font-size: 1.6rem;
+    }
+}

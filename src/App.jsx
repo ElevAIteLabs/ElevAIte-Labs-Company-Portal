@@ -4,19 +4,23 @@ import { AuthProvider, ProtectedRoute } from './contexts/AuthContext';
 import Layout from './components/Layout';
 import Hero from './components/Hero';
 import MenuSection from './components/MenuSection';
-import ContactSection from './components/ContactSection';
 import AdminLayout from './components/admin/AdminLayout';
 import Dashboard from './components/admin/Dashboard';
 import ProjectsList from './components/admin/ProjectsList';
 import ProjectForm from './components/admin/ProjectForm';
+import RoleForm from './components/admin/RoleForm';
+import RolesList from './components/admin/RolesList';
 import Login from './components/admin/Login';
 import ExpandedAbout from './components/ExpandedAbout';
 import BlogPage from './components/BlogPage';
 import Projects from './components/Projects';
+import Services from './components/Services';
 import Contacts from './components/Contacts';
+import Careers from './components/Careers';
 import './styles/styles.css';
 import './styles/admin.css';
 import './styles/projects.css';
+import './styles/services.css';
 import './styles/responsive.css';
 
 function App() {
@@ -48,11 +52,15 @@ function App() {
     <AuthProvider>
       <Routes>
         {/* Public Routes */}
+        <Route path="/services" element={
+          <Layout>
+            <Services />
+          </Layout>
+        } />
         <Route path="/" element={
           <Layout>
             <Hero />
             <MenuSection />
-            <ContactSection />
           </Layout>
         } />
 
@@ -77,12 +85,19 @@ function App() {
           </Layout>
         } />
 
-        {/* Contacts Page */}
         <Route path="/contacts" element={
           <Layout>
             <Contacts />
           </Layout>
         } />
+
+        <Route path="/careers" element={
+          <Layout>
+            <Careers />
+          </Layout>
+        } />
+
+
 
         {/* Auth Routes */}
         <Route path="/admin/login" element={<Login />} />
@@ -98,6 +113,9 @@ function App() {
           <Route path="projects" element={<ProjectsList />} />
           <Route path="projects/new" element={<ProjectForm />} />
           <Route path="projects/edit/:id" element={<ProjectForm />} />
+          <Route path="roles" element={<RolesList />} />
+          <Route path="roles/new" element={<RoleForm />} />
+          <Route path="roles/edit/:id" element={<RoleForm />} />
         </Route>
 
         {/* 404 Route */}

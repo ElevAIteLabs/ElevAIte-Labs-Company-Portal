@@ -1,18 +1,22 @@
 import { Link } from 'react-router-dom';
-import { FiGrid, FiPlus, FiTrash2, FiEdit2, FiExternalLink } from 'react-icons/fi';
+import { FiGrid, FiPlus, FiTrash2, FiEdit2, FiExternalLink, FiBriefcase } from 'react-icons/fi';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
 const Dashboard = () => {
   const [projects, setProjects] = useState([]);
+  const [rolesCount, setRolesCount] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(null);
 
   useEffect(() => {
-    const fetchProjects = () => {
+    const fetchDashboardData = () => {
       try {
         const savedProjects = localStorage.getItem('projects');
+        const savedRoles = localStorage.getItem('vacant_roles');
+
         const defaultProjects = [
+          // ... (keep existing default projects)
           {
             id: 'chaitanyamrutha',
             title: 'Chaitanyamrutha-Community Empowerment Platform',
@@ -53,7 +57,6 @@ const Dashboard = () => {
 
         if (savedProjects) {
           const parsedProjects = JSON.parse(savedProjects);
-          // Merge with default projects, avoiding duplicates
           const mergedProjects = [...defaultProjects];
           parsedProjects.forEach(project => {
             if (!mergedProjects.some(p => p.id === project.id)) {
@@ -64,14 +67,20 @@ const Dashboard = () => {
         } else {
           setProjects(defaultProjects);
         }
+
+        if (savedRoles) {
+          setRolesCount(JSON.parse(savedRoles).length);
+        } else {
+          setRolesCount(4); // Default count matching Careers.jsx
+        }
       } catch (error) {
-        console.error('Error loading projects:', error);
+        console.error('Error loading dashboard data:', error);
       } finally {
         setIsLoading(false);
       }
     };
 
-    fetchProjects();
+    fetchDashboardData();
   }, []);
 
   const totalProjects = projects.length;
@@ -84,23 +93,24 @@ const Dashboard = () => {
 
   const stats = [
     { title: 'Total Projects', value: totalProjects.toString(), icon: <FiGrid size={24} />, link: '/admin/projects' },
+    { title: 'Vacant Roles', value: rolesCount.toString(), icon: <FiBriefcase size={24} />, link: '/admin/roles' },
     { title: 'New Projects', value: newProjects.toString(), icon: <FiPlus size={24} />, link: '/admin/projects' },
   ];
 
   const handleDeleteProject = (projectId) => {
     if (window.confirm('Are you sure you want to delete this project? This action cannot be undone.')) {
       const updatedProjects = projects.filter(project => project.id !== projectId);
-      
+
       // Update local storage
       try {
         const savedProjects = localStorage.getItem('projects');
         let projectsToSave = [];
-        
+
         if (savedProjects) {
           const parsedProjects = JSON.parse(savedProjects);
           projectsToSave = parsedProjects.filter(project => project.id !== projectId);
         }
-        
+
         localStorage.setItem('projects', JSON.stringify(projectsToSave));
         setProjects(updatedProjects);
         toast.success('Project deleted successfully');
@@ -118,7 +128,7 @@ const Dashboard = () => {
   return (
     <div className="admin-dashboard">
       <h1>Dashboard</h1>
-      
+
       <div className="dashboard-stats">
         {stats.map((stat, index) => (
           <Link to={stat.link} key={index} className="stat-card">
@@ -140,27 +150,27 @@ const Dashboard = () => {
             <FiPlus /> Add New Project
           </Link>
         </div>
-        
+
         <div className="projects-grid">
           {projects.map((project) => (
             <div key={project.id} className="project-card">
               <h3>{project.title}</h3>
               <p className="project-description">
-                {project.description.length > 100 
-                  ? `${project.description.substring(0, 100)}...` 
+                {project.description.length > 100
+                  ? `${project.description.substring(0, 100)}...`
                   : project.description}
               </p>
               <div className="project-actions flex justify-between items-center w-full">
-                <a 
-                  href={project.website} 
-                  target="_blank" 
+                <a
+                  href={project.website}
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="btn btn-sm btn-outline flex items-center gap-1"
                 >
                   <FiExternalLink size={14} /> View Live
                 </a>
                 <div className="flex gap-6 ml-auto">
-                  <Link 
+                  <Link
                     to={`/admin/projects/edit/${project.id}`}
                     className="btn btn-sm btn-primary flex items-center gap-1"
                   >

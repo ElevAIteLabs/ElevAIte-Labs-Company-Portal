@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { FiExternalLink } from 'react-icons/fi';
 import { FaMobileAlt, FaGlobe, FaRobot, FaLaptopCode, FaBrain, FaPenFancy } from 'react-icons/fa';
 import { getProjects } from '../data/projects';
-import '../styles/filters.css';
+import '../styles/projects.css';
+
 
 const Projects = () => {
   const [projects, setProjects] = useState([]);
@@ -14,13 +15,13 @@ const Projects = () => {
     // Load projects from the shared data source
     const loadProjects = () => {
       console.log('Loading projects...');
-      
+
       // Check localStorage directly for debugging
       const storedProjects = localStorage.getItem('projects');
       console.log('Projects in localStorage:', storedProjects);
-      
+
       const projectsData = getProjects();
-      
+
       // Detailed debug logging
       console.group('Projects Data');
       console.log('Raw projects data from getProjects():', projectsData);
@@ -35,12 +36,12 @@ const Projects = () => {
         console.groupEnd();
       });
       console.groupEnd();
-      
+
       setProjects(projectsData);
     };
-    
+
     loadProjects();
-    
+
     // Add event listener for storage changes
     const handleStorageChange = (e) => {
       if (e.key === 'projects' || !e.key) {
@@ -48,19 +49,19 @@ const Projects = () => {
         loadProjects();
       }
     };
-    
+
     // Also log localStorage content for debugging
     const storedProjects = localStorage.getItem('projects');
     console.log('Raw localStorage projects:', storedProjects);
-    
+
     window.addEventListener('storage', handleStorageChange);
-    
+
     // Cleanup
     return () => {
       window.removeEventListener('storage', handleStorageChange);
     };
   }, [refreshKey]);
-  
+
   // Force refresh when component mounts or when refreshKey changes
   useEffect(() => {
     console.log('Refresh key changed, reloading projects...');
@@ -77,7 +78,7 @@ const Projects = () => {
     { id: 'agents', label: 'AI Agents', icon: <FaBrain /> },
     { id: 'content', label: 'Content Creation', icon: <FaPenFancy /> }
   ];
-  
+
   // Function to handle filter button click
   const handleFilterClick = (filterId) => {
     console.log(`Filter clicked: ${filterId}`);
@@ -88,14 +89,14 @@ const Projects = () => {
   // Log current state for debugging
   console.log('Current projects state:', projects);
   console.log('Active filter:', activeFilter);
-  
+
   // Ensure projects is an array before filtering
   const projectsArray = Array.isArray(projects) ? projects : [];
-  
+
   const filteredProjects = React.useMemo(() => {
     // First, ensure projects is an array
     const projectsArray = Array.isArray(projects) ? projects : [];
-    
+
     if (!projectsArray.length) {
       console.warn('No projects available to filter');
       return [];
@@ -105,54 +106,54 @@ const Projects = () => {
       console.log('Showing all projects:', projectsArray.length);
       return [...projectsArray];
     }
-    
+
     console.log(`Filtering projects by: ${activeFilter}`);
     const lowerCaseFilter = activeFilter.toLowerCase().trim();
-    
+
     return projectsArray.filter(project => {
       if (!project) {
         console.warn('Undefined project found in array');
         return false;
       }
-      
+
       // Ensure project has tags and it's an array
       const projectTags = Array.isArray(project.tags) ? project.tags : [];
-      
+
       // If no tags, only show in 'all' filter (already handled above)
       if (!projectTags.length) {
         return false;
       }
-      
+
       // Check if any tag matches the filter
       return projectTags.some(tag => {
         if (!tag) return false;
         const tagLower = tag.toString().toLowerCase().trim();
-        
+
         // Handle different filter cases
         switch (lowerCaseFilter) {
           case 'web':
             // Only match exact 'web app' or 'web' tags
             return tagLower === 'web app' || tagLower === 'web';
-            
+
           case 'ai':
             // Match only AI Automation tags, exclude AI Agent
-            return (tagLower === 'ai automation' || tagLower === 'automation') && 
-                   tagLower !== 'ai agent' && tagLower !== 'agent';
-                   
+            return (tagLower === 'ai automation' || tagLower === 'automation') &&
+              tagLower !== 'ai agent' && tagLower !== 'agent';
+
           case 'agents':
             // Match only AI Agent specific tags
             return tagLower === 'ai agent' || tagLower === 'agent';
-            
+
           case 'mobile':
             // Only match mobile-specific tags (case-insensitive)
-            return tagLower === 'mobile' || tagLower === 'mobile app' || 
-                   tagLower === 'mobile application';
-                   
+            return tagLower === 'mobile' || tagLower === 'mobile app' ||
+              tagLower === 'mobile application';
+
           case 'content':
             // Match content-related tags
-            return tagLower === 'content' || tagLower === 'content creation' || 
-                   tagLower === 'content generation' || tagLower === 'content creation';
-                   
+            return tagLower === 'content' || tagLower === 'content creation' ||
+              tagLower === 'content generation' || tagLower === 'content creation';
+
           default:
             // Default to exact match for other filters
             return tagLower === lowerCaseFilter;
@@ -160,8 +161,8 @@ const Projects = () => {
       });
     });
   }, [projects, activeFilter]);
-  
-  console.log(`Found ${filteredProjects.length} projects matching filter "${activeFilter}":`, 
+
+  console.log(`Found ${filteredProjects.length} projects matching filter "${activeFilter}":`,
     filteredProjects.map(p => p.title));
 
   // Function to get the appropriate icon for each tag
@@ -188,11 +189,11 @@ const Projects = () => {
   return (
     <div className="projects-page-container projects-page">
       <div className="projects-page-header">
-          <h1>Our Projects</h1>
-        <p>Check out some of our recent work</p>
 
+        <h1>AI, Web & Mobile Development</h1>
+        <p>Explore our portfolio of AI automation systems, web applications, mobile apps, and intelligent software solutions built for impact.</p>
       </div>
-      
+
       <div className="filters-container">
         {filterButtons.map(({ id, label, icon }) => {
           return (

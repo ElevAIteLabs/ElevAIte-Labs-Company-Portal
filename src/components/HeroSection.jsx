@@ -26,8 +26,8 @@ const HeroSection = () => {
           <p>Transforming ideas into intelligent solutions through cutting-edge AI technology and innovative thinking.</p>
           <div className="hero-actions">
             <div className="explore-dropdown">
-              <button 
-                className="explore-btn" 
+              <button
+                className="explore-btn"
                 onClick={toggleOptions}
                 style={{
                   display: 'inline-flex',
@@ -46,11 +46,11 @@ const HeroSection = () => {
               >
                 Explore
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </button>
               {isOptionsOpen && (
-                <div 
+                <div
                   className="dropdown-options"
                   style={{
                     position: 'absolute',
@@ -66,7 +66,7 @@ const HeroSection = () => {
                     animation: 'fadeIn 0.2s ease-out'
                   }}
                 >
-                  <button 
+                  <button
                     onClick={() => handleOptionClick('AI Solutions')}
                     style={{
                       display: 'block',
@@ -83,7 +83,7 @@ const HeroSection = () => {
                   >
                     AI Solutions
                   </button>
-                  <button 
+                  <button
                     onClick={() => handleOptionClick('Our Work')}
                     style={{
                       display: 'block',
@@ -100,7 +100,7 @@ const HeroSection = () => {
                   >
                     Our Work
                   </button>
-                  <button 
+                  <button
                     onClick={() => handleOptionClick('About Us')}
                     style={{
                       display: 'block',
@@ -117,7 +117,7 @@ const HeroSection = () => {
                   >
                     About Us
                   </button>
-                  <button 
+                  <button
                     onClick={() => handleOptionClick('Contact')}
                     style={{
                       display: 'block',
@@ -140,10 +140,10 @@ const HeroSection = () => {
           </div>
         </div>
         <div className="hero-image">
-          <Spline 
+          <Spline
             scene="https://prod.spline.design/your-scene-id/scene.splinecode"
-            style={{ 
-              width: '100%', 
+            style={{
+              width: '100%',
               height: '100%',
               borderRadius: '12px',
               boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)'
