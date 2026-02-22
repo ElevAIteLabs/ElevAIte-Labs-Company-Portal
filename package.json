@@ -1,6 +1,16 @@
 {
   "name": "elevaite-labs",
   "version": "1.0.0",
+  "supportedArchitectures": {
+    "os": [
+      "linux",
+      "win32"
+    ],
+    "cpu": [
+      "x64",
+      "arm64"
+    ]
+  },
   "description": "ElevAIte Labs - Crafting Exceptional Digital Experiences",
   "type": "module",
   "scripts": {
