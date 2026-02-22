@@ -140,15 +140,17 @@ const HeroSection = () => {
           </div>
         </div>
         <div className="hero-image">
-          <Spline
-            scene="https://prod.spline.design/your-scene-id/scene.splinecode"
-            style={{
-              width: '100%',
-              height: '100%',
-              borderRadius: '12px',
-              boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)'
-            }}
-          />
+          <div className="hero-spline-wrapper">
+            <Spline
+              scene="https://prod.spline.design/your-scene-id/scene.splinecode"
+              style={{
+                width: '100%',
+                height: '100%',
+                borderRadius: '12px',
+                boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)'
+              }}
+            />
+          </div>
         </div>
       </div>
     </section>

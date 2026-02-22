@@ -168,28 +168,14 @@ function Hero() {
             padding: 0 !important;
             margin: 0 !important;
             order: 1 !important;
+            text-align: center !important;
+          }
+          .hero-description {
+            margin-left: auto !important;
+            margin-right: auto !important;
           }
           .hero-animation {
-            width: 140% !important;
-            height: 3500px !important;
-            margin: 0 auto 0 !important;
-            transform: none !important;
-            order: 2 !important;
-            overflow: visible !important;
-            margin-left: -20% !important;
-            position: relative;
-            z-index: 10 !important;
-            padding-top: 60px !important;
-          }
-          .spline-viewer {
-            position: relative !important;
-            width: 100% !important;
-            height: 100% !important;
-            transform: scale(1.6) translate(25%, 5%) !important;
-            left: 0 !important;
-            margin: 0 !important;
-            --cursor: none !important;
-            --interaction: none !important;
+            display: none !important;
           }
           /* Enhanced watermark and logo hiding */
           .spline-viewer::part(logo),

@@ -340,6 +340,11 @@
   .hero-image {
     min-height: 250px;
     margin-top: 1rem;
+    display: none !important;
+  }
+
+  .hero-spline-wrapper {
+    display: none !important;
   }
 }
 
