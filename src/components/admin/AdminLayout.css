@@ -110,21 +110,25 @@
 
 .submenu-toggle {
   transition: transform 0.3s ease;
-  opacity: 0.5;
+  opacity: 0.8;
+  color: #1E88E5;
 }
 
 .submenu-toggle.open {
   transform: rotate(90deg);
   opacity: 1;
+  color: #60a5fa;
 }
 
 .submenu {
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  background-color: rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, rgba(30, 136, 229, 0.15), rgba(30, 136, 229, 0.08));
+  border: 1px solid rgba(30, 136, 229, 0.2);
   margin: 0 12px;
   border-radius: 0 0 12px 12px;
+  backdrop-filter: blur(10px);
 }
 
 .submenu.open {

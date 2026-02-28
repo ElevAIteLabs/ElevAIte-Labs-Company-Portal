@@ -1,6 +1,6 @@
 import { Outlet, Link, useNavigate, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { FiMenu, FiX, FiHome, FiGrid, FiLogOut, FiChevronRight, FiBriefcase, FiPlus } from 'react-icons/fi';
+import { FiMenu, FiX, FiHome, FiGrid, FiLogOut, FiChevronRight, FiBriefcase, FiPlus, FiCpu } from 'react-icons/fi';
 import './AdminLayout.css';
 
 const AdminLayout = () => {
@@ -37,6 +37,15 @@ const AdminLayout = () => {
       submenu: [
         { title: 'All Projects', path: '/admin/projects' },
         { title: 'Add New', path: '/admin/projects/new' },
+      ]
+    },
+    {
+      title: 'Services',
+      icon: <FiCpu size={20} />,
+      path: '/admin/services',
+      submenu: [
+        { title: 'All Services', path: '/admin/services' },
+        { title: 'Add New', path: '/admin/services/new' },
       ]
     },
     {

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { FiArrowLeft, FiSave } from 'react-icons/fi';
 import { toast } from 'react-toastify';
+import { apiService } from '../../services/api';
 
 const RoleForm = () => {
     const navigate = useNavigate();
@@ -16,55 +17,70 @@ const RoleForm = () => {
     });
 
     const [loading, setLoading] = useState(false);
+    const [fetching, setFetching] = useState(false);
     const [error, setError] = useState('');
 
     useEffect(() => {
         if (isEditMode) {
-            const savedRoles = JSON.parse(localStorage.getItem('vacant_roles') || '[]');
-            const role = savedRoles.find(r => r.id === id);
-            if (role) {
-                setFormData({
-                    title: role.title,
-                    location: role.location,
-                    type: role.type,
-                    experience: role.experience
-                });
-            }
+            fetchRole();
         }
     }, [id, isEditMode]);
+
+    const fetchRole = async () => {
+        try {
+            setFetching(true);
+            const role = await apiService.getRole(id);
+            if (role) {
+                setFormData({
+                    title: role.title || '',
+                    location: role.location || 'Hyderabad',
+                    type: role.type || 'Full-time',
+                    experience: role.experience || ''
+                });
+            }
+        } catch (err) {
+            setError('Failed to fetch role details');
+            toast.error('Error loading role');
+        } finally {
+            setFetching(false);
+        }
+    };
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
+        setError('');
 
         try {
-            const savedRoles = JSON.parse(localStorage.getItem('vacant_roles') || '[]');
-            const newRole = {
-                ...formData,
-                id: isEditMode ? id : Date.now().toString()
-            };
+            const payload = { ...formData };
+            const result = isEditMode
+                ? await apiService.updateRole(id, payload)
+                : await apiService.createRole(payload);
 
-            let updatedRoles;
-            if (isEditMode) {
-                updatedRoles = savedRoles.map(r => r.id === id ? newRole : r);
+            if (result.success || result.message) {
+                toast.success(`Role ${isEditMode ? 'updated' : 'added'} successfully`);
+                navigate('/admin/roles');
             } else {
-                updatedRoles = [...savedRoles, newRole];
+                setError(result.error || 'Server error');
             }
-
-            localStorage.setItem('vacant_roles', JSON.stringify(updatedRoles));
-            toast.success(`Role ${isEditMode ? 'updated' : 'added'} successfully`);
-            navigate('/admin/roles');
         } catch (err) {
-            setError('Failed to save role');
+            setError('Failed to save role: ' + err.message);
         } finally {
             setLoading(false);
         }
     };
+
+    if (fetching) return (
+        <div className="loading-container">
+            <div className="spinner"></div>
+            <p>Loading role details...</p>
+        </div>
+    );
 
     return (
         <div className="project-form-container">

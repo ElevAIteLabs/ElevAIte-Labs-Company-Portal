@@ -74,6 +74,12 @@
   transition: all 0.3s ease;
 }
 
+.service-icon-container svg {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
 .service-card:hover .service-icon-container {
   background: var(--accent-blue);
   color: white;
@@ -84,6 +90,13 @@
   font-size: 1.6rem;
   color: white;
   font-weight: 700;
+}
+
+.service-description {
+  color: var(--text-gray);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
 }
 
 .service-subtitle {

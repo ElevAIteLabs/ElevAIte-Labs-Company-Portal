@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { FiExternalLink } from 'react-icons/fi';
 import { FaMobileAlt, FaGlobe, FaRobot, FaLaptopCode, FaBrain, FaPenFancy } from 'react-icons/fa';
-import { getProjects } from '../data/projects';
+import { getProjects, defaultProjects } from '../data/projects';
+import { apiService } from '../services/api';
 import '../styles/projects.css';
 
 
@@ -12,62 +13,33 @@ const Projects = () => {
   const [refreshKey, setRefreshKey] = useState(0);
 
   useEffect(() => {
-    // Load projects from the shared data source
-    const loadProjects = () => {
-      console.log('Loading projects...');
+    const loadProjects = async () => {
+      try {
+        const apiProjects = await apiService.getProjects();
 
-      // Check localStorage directly for debugging
-      const storedProjects = localStorage.getItem('projects');
-      console.log('Projects in localStorage:', storedProjects);
+        // Combine with defaults
+        const projectMap = new Map();
+        defaultProjects.forEach(p => projectMap.set(p.id, p));
 
-      const projectsData = getProjects();
+        if (Array.isArray(apiProjects)) {
+          apiProjects.forEach(p => {
+            const normalized = {
+              ...p,
+              project_type: p.project_type || 'Web App',
+              tags: [p.project_type || 'Web App']
+            };
+            projectMap.set(p.id, normalized);
+          });
+        }
 
-      // Detailed debug logging
-      console.group('Projects Data');
-      console.log('Raw projects data from getProjects():', projectsData);
-      console.log('Number of projects:', projectsData.length);
-      projectsData.forEach((project, index) => {
-        console.group(`Project ${index + 1}: ${project.title}`);
-        console.log('ID:', project.id);
-        console.log('Title:', project.title);
-        console.log('Images:', project.images);
-        console.log('Tags:', project.tags);
-        console.log('Website:', project.website);
-        console.groupEnd();
-      });
-      console.groupEnd();
-
-      setProjects(projectsData);
-    };
-
-    loadProjects();
-
-    // Add event listener for storage changes
-    const handleStorageChange = (e) => {
-      if (e.key === 'projects' || !e.key) {
-        console.log('Storage change detected, reloading projects...');
-        loadProjects();
+        setProjects(Array.from(projectMap.values()));
+      } catch (error) {
+        console.error('Error loading projects from API:', error);
+        setProjects(defaultProjects);
       }
     };
 
-    // Also log localStorage content for debugging
-    const storedProjects = localStorage.getItem('projects');
-    console.log('Raw localStorage projects:', storedProjects);
-
-    window.addEventListener('storage', handleStorageChange);
-
-    // Cleanup
-    return () => {
-      window.removeEventListener('storage', handleStorageChange);
-    };
-  }, [refreshKey]);
-
-  // Force refresh when component mounts or when refreshKey changes
-  useEffect(() => {
-    console.log('Refresh key changed, reloading projects...');
-    const projectsData = getProjects();
-    console.log('Refreshed projects data:', projectsData);
-    setProjects(projectsData);
+    loadProjects();
   }, [refreshKey]);
 
   const filterButtons = [

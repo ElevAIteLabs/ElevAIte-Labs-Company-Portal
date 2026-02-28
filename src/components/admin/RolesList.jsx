@@ -2,30 +2,48 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FiEdit2, FiTrash2, FiPlus } from 'react-icons/fi';
 import { toast } from 'react-toastify';
+import { apiService } from '../../services/api';
 
 const RolesList = () => {
     const [roles, setRoles] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const fetchRoles = () => {
-            const savedRoles = JSON.parse(localStorage.getItem('vacant_roles') || '[]');
-            setRoles(savedRoles);
-            setLoading(false);
-        };
-        fetchRoles();
+        loadRoles();
     }, []);
 
-    const handleDelete = (id) => {
-        if (window.confirm('Are you sure you want to delete this role?')) {
-            const updatedRoles = roles.filter(role => role.id !== id);
-            setRoles(updatedRoles);
-            localStorage.setItem('vacant_roles', JSON.stringify(updatedRoles));
-            toast.success('Role deleted successfully');
+    const loadRoles = async () => {
+        try {
+            setLoading(true);
+            const data = await apiService.getRoles();
+            setRoles(Array.isArray(data) ? data : []);
+        } catch (err) {
+            toast.error('Failed to load roles');
+        } finally {
+            setLoading(false);
         }
     };
 
-    if (loading) return <div className="loading">Loading roles...</div>;
+    const handleDelete = async (id) => {
+        if (window.confirm('Are you sure you want to delete this role?')) {
+            try {
+                const result = await apiService.deleteRole(id);
+                if (result.success || result.message) {
+                    toast.success('Role deleted successfully');
+                    loadRoles();
+                }
+            } catch (err) {
+                toast.error('Failed to delete role');
+            }
+        }
+    };
+
+    if (loading) return (
+        <div className="loading-container">
+            <div className="spinner"></div>
+            <p>Fetching your roles...</p>
+        </div>
+    );
 
     return (
         <div className="admin-projects">

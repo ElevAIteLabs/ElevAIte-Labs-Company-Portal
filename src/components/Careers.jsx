@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { FiBriefcase, FiMapPin, FiClock, FiStar, FiZap, FiTarget, FiUsers } from 'react-icons/fi';
+import { FiBriefcase, FiMapPin, FiClock, FiStar, FiZap, FiTarget, FiUsers, FiLoader } from 'react-icons/fi';
+import { apiService } from '../services/api';
 import '../styles/careers.css';
 
 const Careers = () => {
@@ -35,22 +36,27 @@ const Careers = () => {
     ];
 
     const [positions, setPositions] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const fetchPositions = () => {
-            const savedRoles = JSON.parse(localStorage.getItem('vacant_roles') || '[]');
-            if (savedRoles.length > 0) {
-                setPositions(savedRoles);
-            } else {
+        const fetchPositions = async () => {
+            try {
+                setLoading(true);
+                const data = await apiService.getRoles();
+                if (Array.isArray(data) && data.length > 0) {
+                    setPositions(data);
+                } else {
+                    setPositions(defaultPositions);
+                }
+            } catch (err) {
+                console.error("Error fetching roles:", err);
                 setPositions(defaultPositions);
+            } finally {
+                setLoading(false);
             }
         };
 
         fetchPositions();
-
-        // Listen for updates from Admin
-        window.addEventListener('storage', fetchPositions);
-        return () => window.removeEventListener('storage', fetchPositions);
     }, []);
 
     const benefits = [
@@ -96,24 +102,34 @@ const Careers = () => {
             <div className="positions-section">
                 <div className="positions-header">
                     <h2>Open Positions</h2>
-                    <span className="positions-count">{positions.length} active roles</span>
+                    {loading ? (
+                        <span className="positions-count">Updating roles...</span>
+                    ) : (
+                        <span className="positions-count">{positions.length} active roles</span>
+                    )}
                 </div>
 
-                <div className="positions-grid">
-                    {positions.map((job, index) => (
-                        <div key={index} className="position-card">
-                            <div className="position-main">
-                                <h3>{job.title}</h3>
-                                <div className="position-meta">
-                                    <span className="meta-item"><FiMapPin /> {job.location}</span>
-                                    <span className="meta-item"><FiClock /> {job.type}</span>
-                                    <span className="meta-item"><FiBriefcase /> {job.experience}</span>
+                {loading ? (
+                    <div style={{ display: 'flex', justifyContent: 'center', padding: '4rem 0', color: 'rgba(255,255,255,0.4)' }}>
+                        <FiLoader className="spinner" size={30} />
+                    </div>
+                ) : (
+                    <div className="positions-grid">
+                        {positions.map((job, index) => (
+                            <div key={job.id || index} className="position-card">
+                                <div className="position-main">
+                                    <h3>{job.title}</h3>
+                                    <div className="position-meta">
+                                        <span className="meta-item"><FiMapPin /> {job.location}</span>
+                                        <span className="meta-item"><FiClock /> {job.type}</span>
+                                        <span className="meta-item"><FiBriefcase /> {job.experience}</span>
+                                    </div>
                                 </div>
+                                <button className="apply-btn">Apply Now</button>
                             </div>
-                            <button className="apply-btn">Apply Now</button>
-                        </div>
-                    ))}
-                </div>
+                        ))}
+                    </div>
+                )}
             </div>
 
             <div className="application-cta">

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import ExpandedAbout from './ExpandedAbout';
 import { FiMail, FiPhone, FiMapPin, FiBriefcase, FiZap, FiStar } from 'react-icons/fi';
+import { apiService } from '../services/api';
 import '../styles/HeroSection.css';
 
 // Menu items for navigation
@@ -19,6 +20,8 @@ const menuItems = [
   },
   {
     id: 'services',
+
+
     label: 'Services',
     headline: 'My Services',
     body: 'I offer a range of services to help bring your ideas to life.',
@@ -247,18 +250,21 @@ const MenuSection = () => {
 
   // Fetch vacant roles count for badge
   useEffect(() => {
-    const fetchRolesCount = () => {
-      const savedRoles = JSON.parse(localStorage.getItem('vacant_roles') || '[]');
-      if (savedRoles.length > 0) {
-        setVacantRolesCount(savedRoles.length);
-      } else {
-        setVacantRolesCount('4+'); // Default fallback
+    const fetchRolesCount = async () => {
+      try {
+        const data = await apiService.getRoles();
+        if (Array.isArray(data) && data.length > 0) {
+          setVacantRolesCount(data.length);
+        } else {
+          setVacantRolesCount(4); // Default fallback matching Careers page
+        }
+      } catch (err) {
+        console.error('Error fetching roles:', err);
+        setVacantRolesCount(4);
       }
     };
 
     fetchRolesCount();
-    window.addEventListener('storage', fetchRolesCount);
-    return () => window.removeEventListener('storage', fetchRolesCount);
   }, []);
 
   const clients = [

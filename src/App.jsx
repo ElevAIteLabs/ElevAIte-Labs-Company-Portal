@@ -10,6 +10,8 @@ import ProjectsList from './components/admin/ProjectsList';
 import ProjectForm from './components/admin/ProjectForm';
 import RoleForm from './components/admin/RoleForm';
 import RolesList from './components/admin/RolesList';
+import ServiceForm from './components/admin/ServiceForm';
+import ServicesList from './components/admin/ServicesList';
 import Login from './components/admin/Login';
 import ExpandedAbout from './components/ExpandedAbout';
 import BlogPage from './components/BlogPage';
@@ -116,6 +118,9 @@ function App() {
           <Route path="roles" element={<RolesList />} />
           <Route path="roles/new" element={<RoleForm />} />
           <Route path="roles/edit/:id" element={<RoleForm />} />
+          <Route path="services" element={<ServicesList />} />
+          <Route path="services/new" element={<ServiceForm />} />
+          <Route path="services/edit/:id" element={<ServiceForm />} />
         </Route>
 
         {/* 404 Route */}
