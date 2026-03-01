@@ -6,13 +6,23 @@ export const apiService = {
     async getProjects() {
         const response = await fetch(`${API_BASE_URL}/projects.php`);
         if (!response.ok) throw new Error('Failed to fetch projects');
-        return response.json();
+        const data = await response.json();
+        return Array.isArray(data) ? data.map(project => {
+            if (typeof project.images === 'string') {
+                try { project.images = JSON.parse(project.images); } catch (e) { project.images = []; }
+            }
+            return project;
+        }) : data;
     },
 
     async getProject(id) {
         const response = await fetch(`${API_BASE_URL}/projects.php?id=${id}`);
         if (!response.ok) throw new Error('Failed to fetch project');
-        return response.json();
+        const data = await response.json();
+        if (data && typeof data.images === 'string') {
+            try { data.images = JSON.parse(data.images); } catch (e) { data.images = []; }
+        }
+        return data;
     },
 
     async createProject(data) {

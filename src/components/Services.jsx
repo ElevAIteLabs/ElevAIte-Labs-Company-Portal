@@ -59,6 +59,7 @@ const guessIconByName = (nameStr) => {
   if (name.includes('gpt') || name.includes('openai') || name.includes('llm') || name.includes('claude')) return SiOpenai;
   if (name.includes('ai') || name.includes('ml') || name.includes('brain') || name.includes('model')) return FaBrain;
   if (name.includes('bot') || name.includes('rasa') || name.includes('agent')) return BsRobot;
+  if (name.includes('automation') && name.includes('ai')) return FaBrain;
   if (name.includes('automation') || name.includes('cogs')) return FaCogs;
 
   if (name.includes('aws') || name.includes('amazon')) return AiOutlineCloudServer;
@@ -120,7 +121,7 @@ const defaultServices = [
   },
   {
     title: 'AI Automation',
-    icon: 'FaCogs',
+    icon: 'FaBrain',
     subtitle: 'Intelligent automation solutions to streamline your workflows.',
     features: [
       'Cloud Migration',
@@ -140,7 +141,7 @@ const defaultServices = [
   },
   {
     title: 'AI Agents & Chatbots',
-    icon: 'FaComments',
+    icon: 'BsRobot',
     subtitle: 'Intelligent conversational AI and custom agent development.',
     features: [
       'Custom ChatBot Development',
@@ -208,13 +209,18 @@ const Services = () => {
 
       if (Array.isArray(data) && data.length > 0) {
         // Map stored services to include icon components
-        const servicesWithIcons = data.map(service => ({
-          ...service,
-          icon: typeof service.icon === 'string' ? getIconComponent(service.icon) : service.icon,
-          // Handle the misspelled field from DB
-          features: Array.isArray(service.featues) ? service.featues : (Array.isArray(service.features) ? service.features : []),
-          techs: Array.isArray(service.technologies) ? service.technologies : (Array.isArray(service.techs) ? service.techs : [])
-        }));
+        const servicesWithIcons = data.map(service => {
+          let iconName = service.icon;
+          if (service.title.includes('AI Agents')) iconName = 'BsRobot';
+          if (service.title.includes('AI Automation')) iconName = 'FaBrain';
+          return {
+            ...service,
+            icon: typeof iconName === 'string' ? getIconComponent(iconName) : iconName,
+            // Handle the misspelled field from DB
+            features: Array.isArray(service.featues) ? service.featues : (Array.isArray(service.features) ? service.features : []),
+            techs: Array.isArray(service.technologies) ? service.technologies : (Array.isArray(service.techs) ? service.techs : [])
+          };
+        });
         setServices(servicesWithIcons);
       } else {
         // Fallback to defaults if DB is empty
